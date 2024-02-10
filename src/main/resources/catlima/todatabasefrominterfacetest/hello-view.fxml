@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="catlima.todatabasefrominterfacetest.HelloController">
-  <padding>
-    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-  </padding>
+<VBox alignment="CENTER" prefHeight="391.0" prefWidth="526.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="catlima.todatabasefrominterfacetest.HelloController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <Label prefHeight="47.0" prefWidth="244.0" text="Please pick a seat:" />
+   <Label text="The ones that are available are 1A, 2A, 3B" />
+   <Label text="Type the flight ID and one of them in order to book it, click Add after that." />
+   <TextField fx:id="fxFlightID" promptText="enter flight ID" />
 
-  <Label fx:id="welcomeText"/>
-  <Button text="Hello!" onAction="#onHelloButtonClick"/>
+    <Label fx:id="welcomeText" />
+    <Button onAction="#onAddButtonClick" text="Add" />
+   <TextField fx:id="newText" promptText="enter seat number" />
 </VBox>
