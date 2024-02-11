@@ -1,5 +1,7 @@
 package backend;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseConnection {
 
@@ -15,8 +17,18 @@ public class DatabaseConnection {
                 pstmt.setString(2,seat);
                 pstmt.executeUpdate();
             }
-            String test = "SELECT * FROM flights";
-            //try (PreparedStatement pstmt2 = c.prepareStatement(test))
+
+            // Testing that the information was inserted by printing it.
+            Statement s = c.createStatement();
+            ResultSet data = s.executeQuery("Select * from flights");
+
+            // This prints out all the information in the flights table to check that it was updated.
+            while (data.next()){
+                System.out.println(data.getString(1) + " " + data.getString(2));
+            }
+
+
+
         } catch (Exception e){
             System.out.println("No connection was possible.");
         } finally {
