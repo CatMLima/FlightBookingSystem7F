@@ -3,7 +3,7 @@ import java.sql.*;
 
 public class DatabaseConnection {
 
-    // This method will take whatever String input is given to it and insert it into the table Library under the column Sentences.
+    // This method will take whatever String input is given to it and insert it into the flights table under the columns flightID and Taken.
     public static void dbInsert(String flightID, String seat) throws SQLException, ClassNotFoundException {
         Connection c = null;
         Class.forName("org.sqlite.JDBC");
@@ -24,8 +24,6 @@ public class DatabaseConnection {
                 c.close();
             }
         }
-
-
     }
 
 

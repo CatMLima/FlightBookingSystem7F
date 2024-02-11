@@ -19,7 +19,7 @@ public class HelloController implements Initializable {
     @FXML
     private TextField fxFlightID;
 
-    // This method will take the text in the Textfield object and send it to the DataBaseConnection class.
+    // This method will take the text in the Textfield objects and send it to the DataBaseConnection class.
     @FXML
     protected void onAddButtonClick() throws SQLException, ClassNotFoundException {
 
