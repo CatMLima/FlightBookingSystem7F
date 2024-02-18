@@ -30,6 +30,11 @@ public class HelloController implements Initializable {
         }
     }
 
+    @FXML
+    protected void onCheckClick() throws SQLException, ClassNotFoundException{
+        DataExchange.dbSearch();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         welcomeText.setText("Insert what you wanna send to the database.");
