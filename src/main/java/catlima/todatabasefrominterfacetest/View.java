@@ -5,7 +5,7 @@ package catlima.todatabasefrominterfacetest;
  */
 public enum View {
 
-    HOME("hello-view.fxml"),
+    HOME("main-view.fxml"),
     SEARCH("search-view.fxml");
 
     private final String fileName;

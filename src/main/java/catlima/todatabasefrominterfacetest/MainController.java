@@ -3,13 +3,12 @@ package catlima.todatabasefrominterfacetest;
 import backend.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
-import org.w3c.dom.Text;
 
 import java.net.*;
 import java.sql.*;
 import java.util.*;
 
-public class HelloController implements Initializable {
+public class MainController implements Initializable {
     @FXML
     private Label welcomeText;
 
