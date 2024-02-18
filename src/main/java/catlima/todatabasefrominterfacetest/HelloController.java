@@ -32,7 +32,7 @@ public class HelloController implements Initializable {
 
     @FXML
     protected void onCheckClick() throws SQLException, ClassNotFoundException{
-        DataExchange.dbSearch();
+        ViewSwitcher.switchTo(View.SEARCH, true);
     }
 
     @Override

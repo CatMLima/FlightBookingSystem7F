@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="catlima.todatabasefrominterfacetest.SearchController">
+   <children>
+      <HBox layoutX="9.0" layoutY="18.0" prefHeight="353.0" prefWidth="580.0">
+         <children>
+            <VBox prefHeight="353.0" prefWidth="304.0">
+               <children>
+                  <TextField fx:id="fxLocation" promptText="insert location" />
+                  <TextField fx:id="fxDate" promptText="insert date" />
+               </children>
+            </VBox>
+            <VBox prefHeight="353.0" prefWidth="267.0">
+               <children>
+                  <Button fx:id="fxSearch" mnemonicParsing="false" onAction="#onSearchClick" text="Search" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Button layoutX="445.0" layoutY="374.0" mnemonicParsing="false" onAction="#onCancelClick" text="Cancel" />
+   </children>
+</Pane>
