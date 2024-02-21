@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>catlima</groupId>
-    <artifactId>ToDataBaseFromInterfaceTest</artifactId>
+    <artifactId>DatabaseConnection</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>ToDataBaseFromInterfaceTest</name>
 
