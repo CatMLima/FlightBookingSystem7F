@@ -3,18 +3,18 @@ package catlima.todatabasefrominterfacetest;
 import backend.DataExchange;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableListBase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import org.w3c.dom.Text;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class SearchController {
 
@@ -39,8 +39,14 @@ public class SearchController {
 
     public void initialize(){ fxDepartureDate.setValue(LocalDate.now());}
 
+    private ArrayList<String> flightsList = new ArrayList<>();
+
+    @FXML
+    private ListView<String> fxFlightsView;
+
+
     /*
-    TO TEST IT: Pick the Reykjavik Domestic Aiport as a location and the Akureyri Airport as destination and the date 6/6/2024
+    TO TEST IT: Pick the Reykjavik Domestic Airport (RKV), Vatnsmýri, 101 Reykjavík as a location and the Urðargill 15, 600 Akureyri as destination and the date 6/6/2024
      */
     @FXML
     protected void onSearchClick(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
@@ -48,10 +54,11 @@ public class SearchController {
         String date = String.valueOf(fxDepartureDate.getValue());
         String destination =fxDestination.getText();
 
-        // put "date" as second parameter.
         if (location != null){
-            DataExchange.dbSearch(location,destination,date);
+            flightsList = DataExchange.dbSearch(location,destination,date);
         }
+        ObservableList<String> flightsObs = FXCollections.observableArrayList(flightsList);
+        fxFlightsView.setItems(flightsObs);
 
     }
 
