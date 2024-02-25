@@ -14,7 +14,7 @@ public class FlightApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 
         ViewSwitcher.setScene(scene);
-        ViewSwitcher.switchTo(View.HOME, true);
+        ViewSwitcher.switchTo(View.SEARCH, true);
 
         stage.setTitle("Flight System");
         stage.setScene(scene);
