@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
@@ -26,7 +27,6 @@ public class SearchController {
 
     private String selectedDate;
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public void initialize(){
         fxDepartureDate.setValue(LocalDate.now());
@@ -35,11 +35,13 @@ public class SearchController {
     @FXML
     protected void onSearchClick(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String location = fxLocation.getText();
-        String date = fxDepartureDate.getValue().format(formatter);
+        String date = String.valueOf(fxDepartureDate.getValue());
 
+        // put "date" as second parameter.
         if (location != null){
             DataExchange.dbSearch(location,date);
         }
+
     }
 
     @FXML

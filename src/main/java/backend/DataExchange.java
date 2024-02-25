@@ -19,6 +19,7 @@ public class DataExchange {
             preparedStatement.setString(2,date);
             ResultSet result = preparedStatement.executeQuery();
 
+
             while(result.next()){
                 System.out.println(result.getString(1) + " is available");
             }
