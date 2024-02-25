@@ -7,10 +7,12 @@
    <children>
       <HBox layoutX="9.0" layoutY="18.0" prefHeight="353.0" prefWidth="580.0">
          <children>
-            <VBox prefHeight="353.0" prefWidth="304.0">
+            <VBox fx:id="fxLeftSide" prefHeight="353.0" prefWidth="304.0">
                <children>
-                  <TextField fx:id="fxLocation" promptText="From" />
-                  <TextField fx:id="fxDestination" promptText="To" />
+                  <Label text="Select Departure Location" />
+                  <ChoiceBox fx:id="fxLocationPick" prefWidth="150.0" />
+                  <Label text="Select Destination" />
+                  <ChoiceBox fx:id="fxDestinationPick" prefWidth="150.0" />
                   <DatePicker fx:id="fxDepartureDate" promptText="select departure date" />
                   <Label text="List of Flights" />
                   <ListView fx:id="fxFlightsView" prefHeight="200.0" prefWidth="200.0" />
@@ -18,7 +20,7 @@
             </VBox>
             <VBox prefHeight="353.0" prefWidth="267.0">
                <children>
-                  <Button fx:id="fxSearch" mnemonicParsing="false" onAction="#onSearchClick" text="Search" />
+                  <Button fx:id="fxSearch" mnemonicParsing="false" onAction="#onSearchClick" prefHeight="54.0" prefWidth="84.0" text="Search" />
                </children>
             </VBox>
          </children>

@@ -10,6 +10,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import org.w3c.dom.Text;
 
 import java.sql.SQLException;
@@ -19,30 +21,41 @@ import java.util.ArrayList;
 public class SearchController {
 
     @FXML
-    private TextField fxLocation;
-
-    @FXML
-    private TextField fxDate;
-
-    @FXML
-    private TextField fxDestination;
-
-    @FXML
     private DatePicker fxDepartureDate;
 
     /* Add a binding for the Button fxSearch so they cannot search without selecting their location
     * and destination. */
-
     @FXML
     private Button fxSearch;
 
+    @FXML
+    private ListView<String> fxFlightsView;
 
-    public void initialize(){ fxDepartureDate.setValue(LocalDate.now());}
+    @FXML
+    private ChoiceBox<String> fxLocationPick;
+
+    @FXML
+    private ChoiceBox<String> fxDestinationPick;
 
     private ArrayList<String> flightsList = new ArrayList<>();
 
-    @FXML
-    private ListView<String> fxFlightsView;
+    private ArrayList<String> airportNames = new ArrayList<>();
+
+    //Anything that needs to somehow be initialized should go in here.
+    public void initialize() throws ClassNotFoundException {
+        fxDepartureDate.setValue(LocalDate.now());
+        DataExchange.initialize();
+        populateDropDown();
+    }
+
+
+    // Adds the names of all the airports in the database onto the drop-down choices to avoid hard-coding.
+    public void populateDropDown(){
+        airportNames = DataExchange.dbAirports();
+        ObservableList<String> airportsObs = FXCollections.observableArrayList(airportNames);
+        fxLocationPick.setItems(airportsObs);
+        fxDestinationPick.setItems(airportsObs);
+    }
 
 
     /*
@@ -50,9 +63,9 @@ public class SearchController {
      */
     @FXML
     protected void onSearchClick(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        String location = fxLocation.getText();
+        String location = fxLocationPick.getValue();
+        String destination = fxDestinationPick.getValue();
         String date = String.valueOf(fxDepartureDate.getValue());
-        String destination =fxDestination.getText();
 
         if (location != null){
             flightsList = DataExchange.dbSearch(location,destination,date);
