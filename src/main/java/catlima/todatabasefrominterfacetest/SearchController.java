@@ -39,6 +39,9 @@ public class SearchController {
 
     public void initialize(){ fxDepartureDate.setValue(LocalDate.now());}
 
+    /*
+    TO TEST IT: Pick the Reykjavik Domestic Aiport as a location and the Akureyri Airport as destination and the date 6/6/2024
+     */
     @FXML
     protected void onSearchClick(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String location = fxLocation.getText();
