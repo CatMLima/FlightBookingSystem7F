@@ -21,6 +21,8 @@
             <VBox prefHeight="353.0" prefWidth="267.0">
                <children>
                   <Button fx:id="fxSearch" mnemonicParsing="false" onAction="#onSearchClick" prefHeight="54.0" prefWidth="84.0" text="Search" />
+                  <Label text="Add flights" />
+                  <Button fx:id="fxAdministrator" mnemonicParsing="false" onAction="#onAdmin" text="Administrators" />
                </children>
             </VBox>
          </children>

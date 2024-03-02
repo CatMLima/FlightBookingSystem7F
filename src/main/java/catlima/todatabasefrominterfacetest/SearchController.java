@@ -80,4 +80,7 @@ public class SearchController {
         ViewSwitcher.switchTo(View.HOME, true);
     }
 
+    public void onAdmin(ActionEvent actionEvent) {
+        ViewSwitcher.switchTo(View.FLIGHT, true);
+    }
 }
