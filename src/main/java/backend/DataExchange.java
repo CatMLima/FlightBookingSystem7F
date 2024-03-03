@@ -5,6 +5,27 @@ import java.util.ArrayList;
 
 public class DataExchange {
 
+    final static String [] seats = {"1A","1B","1C","1D",
+            "2A","2B","2C","2D",
+            "3A","3B","3C","3D",
+            "4A","4B","4C","4D",
+            "5A","5B","5C","5D",
+            "6A","6B","6C","6D",
+            "7A","7B","7C","7D",
+            "8A","8B","8C","8D",
+            "9A","9B","9C","9D",
+            "10A","10B","10C","10D",
+            "11A","11B","11C","11D",
+            "12A","12B","12C","12D",
+            "13A","13B","13C","13D",
+            "14A","14B","14C","14D",
+            "15A","15B","15C","15D",
+            "16A","16B","16C","16D",
+            "17A","17B","17C","17D",
+            "18A","18B","18C","18D",
+            "19A","19B","19C","19D",
+            "20A","20B","20C","20D"};
+
     static Connection c;
 
     // initializes the connection from the controller
@@ -47,7 +68,7 @@ public class DataExchange {
         }
     }
 
-    //Method that returns all the distinct airport names.
+    //Method that returns all the distinct airport locations which have flights registered to them.
     public static ArrayList<String> dbAirports(){
         try{
             String search = "Select DISTINCT Location from Airport";
@@ -66,6 +87,78 @@ public class DataExchange {
         }
         return null;
     }
+
+    //This methods returns all the existing airports;
+    public static ArrayList<String> dbAirportNames(){
+        try{
+            String query = "Select DISTINCT Location from AirportSolo";
+            PreparedStatement prep = c.prepareStatement(query);
+            ResultSet result = prep.executeQuery();
+
+            ArrayList<String> airportLocations = new ArrayList<>();
+            while (result.next()){
+                airportLocations.add(result.getString(1));
+            }
+            return airportLocations;
+
+        } catch (Exception e){
+            System.out.println("Error in finding all existing airports.");
+        }
+        return null;
+    }
+
+    /*
+    This method is responsible for inserting new flights into the database, it receives information about
+    the flightID, departure date and time, arrival date and time, and from which airport to which airport.
+    The main goal here is that we create a flight first and then add it to two airports, where it is a
+    departure and where it is an arrival.
+     */
+    public static void createFlight(String flightID, String location, String destination, String depDate, String depTime, String arrDate, String arrTime) throws SQLException {
+        String locationID = fetchID(location);
+        String destinationID = fetchID(destination);
+        int count = seats.length;
+        boolean value = false;
+        for(int i=0; i < count; i++){
+            String statement = "INSERT INTO Flights VALUES ((?),(?),(?),(?),(?),(?),(?))";
+            PreparedStatement insert = c.prepareStatement(statement);
+            insert.setString(1,flightID);
+            insert.setString(2, seats[i]);
+            insert.setBoolean(3, value);
+            insert.setString(4, depDate);
+            insert.setString(5, depTime);
+            insert.setString(6,arrDate);
+            insert.setString(7,arrTime);
+            insert.executeUpdate();
+        }
+
+        String airportAssign = "INSERT INTO Airport VALUES ((?),(?),(?),(?))";
+
+        //Add the flight as a departure from airport
+        PreparedStatement locationInsert = c.prepareStatement(airportAssign);
+        locationInsert.setString(1,locationID);
+        locationInsert.setString(2,location);
+        locationInsert.setString(3,flightID);
+        locationInsert.setString(4,"Departure");
+        locationInsert.executeUpdate();
+
+        //Add the flight as an arrival to an airport
+        PreparedStatement destinationInsert = c.prepareStatement(airportAssign);
+        destinationInsert.setString(1,destinationID);
+        destinationInsert.setString(2,destination);
+        destinationInsert.setString(3,flightID);
+        destinationInsert.setString(4,"Arrival");
+        destinationInsert.executeUpdate();
+    }
+
+    public static String fetchID(String location) throws SQLException {
+        String query = "Select AirportID from Airport WHERE Location=(?)";
+        PreparedStatement prep = c.prepareStatement(query);
+        prep.setString(1,location);
+        ResultSet result = prep.executeQuery();
+        return result.getString(1);
+    }
+
+
 
     // turns off the connection when the application is no longer in use.
     public static void closeConnection() throws SQLException {

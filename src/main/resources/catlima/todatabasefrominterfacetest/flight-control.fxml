@@ -44,13 +44,13 @@
                   <Label text="Arrival Date" GridPane.rowIndex="5" />
                   <Label text="Arrival Time" GridPane.rowIndex="6" />
                   <Label text="Flight ID" />
-                  <ChoiceBox fx:id="fxIDChoices" prefWidth="150.0" GridPane.columnIndex="1" />
                   <ChoiceBox fx:id="fxLocationChoices" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <ChoiceBox fx:id="fxDestinationChoices" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <DatePicker fx:id="fxDepartureDate" promptText="select departure" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <DatePicker fx:id="fxArrivalDate" promptText="select arrival" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <TextField fx:id="fxDepartureTime" promptText="insert departure time" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField fx:id="fxArrivalTime" promptText="insert arrival time" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextField fx:id="fxDepartureTime" promptText="format HH:MM" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="fxArrivalTime" promptText="format HH:MM" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextField fx:id="fxFlightID" promptText="must be in format ABC123" GridPane.columnIndex="1" />
                </children>
             </GridPane>
             <Button fx:id="fxCreateButton" mnemonicParsing="false" onAction="#onCreateFlight" text="Create" />
