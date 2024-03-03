@@ -47,7 +47,9 @@ public class DataExchange {
         try{
 
             // Testing that given the Location and Date of travels the name of the flight and time shows up.
-            String sql = "Select DISTINCT Flights.FlightID, DepTime from Flights, Airport a1, Airport a2 where Flights.FlightID = a1.FlightID AND Flights.FlightID = a2.FlightID AND a1.Location = (?) AND a2.location = (?) AND DepDate = (?) AND Taken=FALSE";
+            String sql = "Select DISTINCT Flights.FlightID, DepTime from Flights, Airport a1, Airport a2 where Flights.FlightID = a1.FlightID " +
+                    "AND Flights.FlightID = a2.FlightID AND a1.Location = (?) AND a2.location = (?) AND DepDate = (?) " +
+                    "AND Taken=FALSE AND a1.FlightType='Departure' AND a2.FlightType='Arrival'";
             PreparedStatement preparedStatement = c.prepareStatement(sql);
             preparedStatement.setString(1, location);
             preparedStatement.setString(2,destination);
@@ -66,26 +68,6 @@ public class DataExchange {
             System.out.println("Error fetching the chosen flight date and location.");
             throw e;
         }
-    }
-
-    //Method that returns all the distinct airport locations which have flights registered to them.
-    public static ArrayList<String> dbAirports(){
-        try{
-            String search = "Select DISTINCT Location from Airport";
-            PreparedStatement prepStat = c.prepareStatement(search);
-            ResultSet result = prepStat.executeQuery();
-
-            ArrayList<String> airports = new ArrayList<>();
-
-            while (result.next()){
-                airports.add(result.getString(1));
-            }
-            return airports;
-
-        }catch (Exception e){
-            System.out.println("Error finding the airport names.");
-        }
-        return null;
     }
 
     //This methods returns all the existing airports;
@@ -118,40 +100,44 @@ public class DataExchange {
         String destinationID = fetchID(destination);
         int count = seats.length;
         boolean value = false;
-        for(int i=0; i < count; i++){
-            String statement = "INSERT INTO Flights VALUES ((?),(?),(?),(?),(?),(?),(?))";
-            PreparedStatement insert = c.prepareStatement(statement);
-            insert.setString(1,flightID);
-            insert.setString(2, seats[i]);
-            insert.setBoolean(3, value);
-            insert.setString(4, depDate);
-            insert.setString(5, depTime);
-            insert.setString(6,arrDate);
-            insert.setString(7,arrTime);
-            insert.executeUpdate();
+        try {
+            for (int i = 0; i < count; i++) {
+                String statement = "INSERT INTO Flights VALUES ((?),(?),(?),(?),(?),(?),(?))";
+                PreparedStatement insert = c.prepareStatement(statement);
+                insert.setString(1, flightID);
+                insert.setString(2, seats[i]);
+                insert.setBoolean(3, value);
+                insert.setString(4, depDate);
+                insert.setString(5, depTime);
+                insert.setString(6, arrDate);
+                insert.setString(7, arrTime);
+                insert.executeUpdate();
+            }
+
+            String airportAssign = "INSERT INTO Airport VALUES ((?),(?),(?),(?))";
+
+            //Add the flight as a departure from airport
+            PreparedStatement locationInsert = c.prepareStatement(airportAssign);
+            locationInsert.setString(1, locationID);
+            locationInsert.setString(2, location);
+            locationInsert.setString(3, flightID);
+            locationInsert.setString(4, "Departure");
+            locationInsert.executeUpdate();
+
+            //Add the flight as an arrival to an airport
+            PreparedStatement destinationInsert = c.prepareStatement(airportAssign);
+            destinationInsert.setString(1, destinationID);
+            destinationInsert.setString(2, destination);
+            destinationInsert.setString(3, flightID);
+            destinationInsert.setString(4, "Arrival");
+            destinationInsert.executeUpdate();
+        } catch (Exception e){
+            System.out.println("Error adding the flight, check Primary Keys.");
         }
-
-        String airportAssign = "INSERT INTO Airport VALUES ((?),(?),(?),(?))";
-
-        //Add the flight as a departure from airport
-        PreparedStatement locationInsert = c.prepareStatement(airportAssign);
-        locationInsert.setString(1,locationID);
-        locationInsert.setString(2,location);
-        locationInsert.setString(3,flightID);
-        locationInsert.setString(4,"Departure");
-        locationInsert.executeUpdate();
-
-        //Add the flight as an arrival to an airport
-        PreparedStatement destinationInsert = c.prepareStatement(airportAssign);
-        destinationInsert.setString(1,destinationID);
-        destinationInsert.setString(2,destination);
-        destinationInsert.setString(3,flightID);
-        destinationInsert.setString(4,"Arrival");
-        destinationInsert.executeUpdate();
     }
 
     public static String fetchID(String location) throws SQLException {
-        String query = "Select AirportID from Airport WHERE Location=(?)";
+        String query = "Select AirportID from AirportSolo WHERE Location=(?)";
         PreparedStatement prep = c.prepareStatement(query);
         prep.setString(1,location);
         ResultSet result = prep.executeQuery();

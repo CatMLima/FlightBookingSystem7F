@@ -51,7 +51,7 @@ public class SearchController {
 
     // Adds the names of all the airports in the database onto the drop-down choices to avoid hard-coding.
     public void populateDropDown(){
-        airportNames = DataExchange.dbAirports();
+        airportNames = DataExchange.dbAirportNames();
         ObservableList<String> airportsObs = FXCollections.observableArrayList(airportNames);
         fxLocationPick.setItems(airportsObs);
         fxDestinationPick.setItems(airportsObs);
