@@ -27,6 +27,5 @@
             </VBox>
          </children>
       </HBox>
-      <Button layoutX="445.0" layoutY="374.0" mnemonicParsing="false" onAction="#onCancelClick" text="Cancel" />
    </children>
 </Pane>

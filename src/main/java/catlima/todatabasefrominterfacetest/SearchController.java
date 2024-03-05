@@ -75,11 +75,6 @@ public class SearchController {
 
     }
 
-    @FXML
-    protected void onCancelClick(ActionEvent actionEvent){
-        ViewSwitcher.switchTo(View.HOME, true);
-    }
-
     public void onAdmin(ActionEvent actionEvent) {
         ViewSwitcher.switchTo(View.FLIGHT, true);
     }
