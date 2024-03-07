@@ -4,8 +4,6 @@ package catlima.todatabasefrominterfacetest;
  * @author Almas Baimagambetov (almaslvl@gmail.com)
  */
 public enum View {
-
-    HOME("main-view.fxml"),
     SEARCH("search-view.fxml"),
 
     FLIGHT("flight-control.fxml");

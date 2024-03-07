@@ -54,6 +54,7 @@
                </children>
             </GridPane>
             <Button fx:id="fxCreateButton" mnemonicParsing="false" onAction="#onCreateFlight" text="Create" />
+            <Label fx:id="fxConfirmation" />
          </children>
       </VBox>
    </children>
