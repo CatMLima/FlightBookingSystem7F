@@ -16,7 +16,7 @@ public class Seat {
     public Boolean getIsonHold() {
         return isonHold;
     }
-
+    //will need to be set to false by default
     public void setIsonHold(Boolean onHold) {
         this.isonHold = onHold;
     }
@@ -24,7 +24,7 @@ public class Seat {
     public Boolean getBooked() {
         return isBooked;
     }
-
+    //will need to be set to false by default
     public void setBooked(Boolean booked) {
         isBooked = booked;
     }
