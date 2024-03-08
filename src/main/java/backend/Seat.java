@@ -43,4 +43,11 @@ public class Seat {
     public void setSeatName(String seatname) {
         seatName = seatName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || this.getClass() != o.getClass()) return false;
+        Seat seat = (Seat) o;
+        return this.seatName != null ? seatName.equals(seat.seatName) : seat.seatName == null;
+    }
 }
