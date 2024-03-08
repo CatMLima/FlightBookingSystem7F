@@ -1,7 +1,7 @@
 package backend;
 
 public class Airport {
-    {
+
         private String location;
         private String code;
 
@@ -25,5 +25,5 @@ public class Airport {
         public void setCode(String code) {
             this.code = code;
         }
-    }
+
 }

@@ -3,7 +3,7 @@ import java.util.Date;
 import java.util.ArrayList;
 
 public class Flight {
-    {
+
         private Airport destination;
         private Airport source;
         private Date date;
@@ -83,6 +83,6 @@ public class Flight {
 
         // TODO: implement updateFlightStatus method
         
-    }
+
 }
 

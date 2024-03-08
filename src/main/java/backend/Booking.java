@@ -1,7 +1,7 @@
 package backend;
 
 public class Booking {
-    {
+
         private Flight bookedFlight;
         private Seat seat;
         private Passenger passenger;
@@ -78,10 +78,10 @@ public class Booking {
         // Other methods
         public void payForFlight() {
             this.isPaidFor = true;
-            this.seat.setIsOnHold(false);
+            //this.seat.setIsOnHold(false);
             this.seat.setBooked(true);
         }
 
         // Not implementing cancel method for now as TA mentioned it doesn't make sense
-    }
+
 }
