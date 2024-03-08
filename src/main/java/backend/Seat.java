@@ -51,7 +51,7 @@ public class Seat {
         return this.seatName != null ? seatName.equals(seat.seatName) : seat.seatName == null;
     }
 
-    // Hey Corey, had to add this method because the program wouldn't run. ~ Cat
+    // Hey Brynjar, had to add this method because the program wouldn't run. ~ Cat
     public boolean getIsOnHold() {
         // just putting some value here so the program will run.
         return false;
