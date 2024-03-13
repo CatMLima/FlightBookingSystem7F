@@ -29,15 +29,21 @@ public class FlightController {
     public TextField fxDepartureTime;
     public TextField fxArrivalTime;
     public Button fxCreateButton;
+    public Label fxConfirmation;
 
     public void initialize(){
         populateChoiceBoxes();
         createButtonBinding();
+        createTextBinding();
     }
 
     //Add a binding here so the Add Flight Button can't be clicked until the person has put in all the
     // necessary information.
     public void createButtonBinding(){
+
+    }
+
+    public void createTextBinding(){
 
     }
 
@@ -51,6 +57,18 @@ public class FlightController {
     public void onCreateFlight(ActionEvent actionEvent) throws SQLException {
         DataExchange.createFlight(fxFlightID.getText(),fxLocationChoices.getValue(),fxDestinationChoices.getValue(),String.valueOf(fxDepartureDate.getValue()),
                 fxDepartureTime.getText(),String.valueOf(fxArrivalDate.getValue()),fxArrivalTime.getText());
+        clearData();
+    }
+
+    public void clearData(){
+        fxConfirmation.setText("Flight Added");
+        fxFlightID.clear();
+        fxDestinationChoices.setValue(null);
+        fxLocationChoices.setValue(null);
+        fxDepartureDate.setValue(null);
+        fxDepartureTime.clear();
+        fxArrivalDate.setValue(null);
+        fxArrivalTime.clear();
     }
 
     public void onReturn(ActionEvent actionEvent) {
