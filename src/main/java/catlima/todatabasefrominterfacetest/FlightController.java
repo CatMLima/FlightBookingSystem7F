@@ -25,7 +25,8 @@ public class FlightController {
     public ChoiceBox<String> fxLocationChoices;
     public ChoiceBox<String> fxDestinationChoices;
     public DatePicker fxDepartureDate;
-    public DatePicker fxArrivalDate;
+
+    // public DatePicker fxArrivalDate;
     public TextField fxDepartureTime;
     public TextField fxArrivalTime;
     public Button fxCreateButton;
@@ -56,7 +57,7 @@ public class FlightController {
 
     public void onCreateFlight(ActionEvent actionEvent) throws SQLException {
         DataExchange.createFlight(fxFlightID.getText(),fxLocationChoices.getValue(),fxDestinationChoices.getValue(),String.valueOf(fxDepartureDate.getValue()),
-                fxDepartureTime.getText(),String.valueOf(fxArrivalDate.getValue()),fxArrivalTime.getText());
+                fxDepartureTime.getText(),String.valueOf(fxDepartureDate.getValue()),fxArrivalTime.getText());
         clearData();
     }
 
@@ -67,7 +68,6 @@ public class FlightController {
         fxLocationChoices.setValue(null);
         fxDepartureDate.setValue(null);
         fxDepartureTime.clear();
-        fxArrivalDate.setValue(null);
         fxArrivalTime.clear();
     }
 
