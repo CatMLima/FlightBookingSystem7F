@@ -3,6 +3,7 @@ package catlima.todatabasefrominterfacetest;
 import backend.DataExchange;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.value.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.*;
@@ -45,6 +46,11 @@ public class FlightController {
     }
 
     public void createTextBinding(){
+        fxFlightID.textProperty().addListener((observable, oldValue, newValue)->{
+            if (!newValue.isEmpty()){
+                fxConfirmation.setText("");
+            }
+        });
 
     }
 
@@ -64,11 +70,13 @@ public class FlightController {
     public void clearData(){
         fxConfirmation.setText("Flight Added");
         fxFlightID.clear();
+        /*
         fxDestinationChoices.setValue(null);
         fxLocationChoices.setValue(null);
         fxDepartureDate.setValue(null);
         fxDepartureTime.clear();
         fxArrivalTime.clear();
+         */
     }
 
     public void onReturn(ActionEvent actionEvent) {
