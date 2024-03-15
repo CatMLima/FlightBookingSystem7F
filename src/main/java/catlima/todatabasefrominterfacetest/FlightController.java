@@ -1,6 +1,8 @@
 package catlima.todatabasefrominterfacetest;
 
+import backend.AirportDB;
 import backend.DataExchange;
+import backend.FlightDB;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.*;
@@ -55,14 +57,14 @@ public class FlightController {
     }
 
     public void populateChoiceBoxes(){
-        ArrayList<String> airportLocations = DataExchange.dbAirportNames();
+        ArrayList<String> airportLocations = AirportDB.dbAirportNames();
         ObservableList<String> airportsObs = FXCollections.observableArrayList(airportLocations);
         fxLocationChoices.setItems(airportsObs);
         fxDestinationChoices.setItems(airportsObs);
     }
 
     public void onCreateFlight(ActionEvent actionEvent) throws SQLException {
-        DataExchange.createFlight(fxFlightID.getText(),fxLocationChoices.getValue(),fxDestinationChoices.getValue(),String.valueOf(fxDepartureDate.getValue()),
+        FlightDB.createFlight(fxFlightID.getText(),fxLocationChoices.getValue(),fxDestinationChoices.getValue(),String.valueOf(fxDepartureDate.getValue()),
                 fxDepartureTime.getText(),String.valueOf(fxDepartureDate.getValue()),fxArrivalTime.getText());
         clearData();
     }

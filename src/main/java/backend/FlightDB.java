@@ -44,7 +44,7 @@ public class FlightDB {
 
     // This method focuses on getting an input location and date and showing the user which seats are available.
     // So far there is only one flight so don't expect much.
-    public static ArrayList<String> dbSearch(String location, String destination, String date) throws SQLException, ClassNotFoundException {
+    public static ArrayList<String> dbFindFlight(String location, String destination, String date) throws SQLException, ClassNotFoundException {
         try{
 
             // Testing that given the Location and Date of travels the name of the flight and time shows up.

@@ -1,6 +1,6 @@
 package catlima.todatabasefrominterfacetest;
 
-import backend.DataExchange;
+import backend.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -44,14 +44,18 @@ public class SearchController {
     //Anything that needs to somehow be initialized should go in here.
     public void initialize() throws ClassNotFoundException {
         fxDepartureDate.setValue(LocalDate.now());
-        DataExchange.initialize();
+        FlightDB.initialize();
+        AirportDB.initialize();
+        BookingDB.initialize();
+        SeatDB.initialize();
+        PassengerDB.initialize();
         populateDropDown();
     }
 
 
     // Adds the names of all the airports in the database onto the drop-down choices to avoid hard-coding.
     public void populateDropDown(){
-        airportNames = DataExchange.dbAirportNames();
+        airportNames = AirportDB.dbAirportNames();
         ObservableList<String> airportsObs = FXCollections.observableArrayList(airportNames);
         fxLocationPick.setItems(airportsObs);
         fxDestinationPick.setItems(airportsObs);
@@ -68,7 +72,7 @@ public class SearchController {
         String date = String.valueOf(fxDepartureDate.getValue());
 
         if (location != null){
-            flightsList = DataExchange.dbSearch(location,destination,date);
+            flightsList = FlightDB.dbFindFlight(location,destination,date);
         }
         ObservableList<String> flightsObs = FXCollections.observableArrayList(flightsList);
         fxFlightsView.setItems(flightsObs);
