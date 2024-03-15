@@ -42,6 +42,48 @@ public class FlightDB {
 
     }
 
+    /*
+    Test method to create a flight object whenever a search is conducted.
+     */
+    public static ArrayList<Flight> dbFlightSearch(String location, String destination, String date) throws SQLException{
+        try{
+
+            String sql = "Select DISTINCT Flights.FlightID, DepTime from Flights, Airport a1, Airport a2 where Flights.FlightID = a1.FlightID " +
+                    "AND Flights.FlightID = a2.FlightID AND a1.Location = (?) AND a2.location = (?) AND DepDate = (?) " +
+                    "AND Taken=FALSE AND a1.FlightType='Departure' AND a2.FlightType='Arrival'";
+            PreparedStatement preparedStatement = c.prepareStatement(sql);
+            preparedStatement.setString(1, location);
+            preparedStatement.setString(2,destination);
+            preparedStatement.setString(3,date);
+            ResultSet result = preparedStatement.executeQuery();
+
+            ArrayList<Flight> flights = new ArrayList<>();
+
+            while(result.next()){
+                String flightID = result.getString(1);
+                flights.add(new Flight(location,destination,Date.valueOf(date),flightID, SeatDB.findSeats(flightID,date), "On Time"));
+            }
+            return flights;
+
+        } catch (Exception e){
+            System.out.println("Error fetching the chosen flight date and location.");
+            throw e;
+        }
+    }
+
+    // testing dbFlightSearch
+    public static void main(String [] args) throws SQLException, ClassNotFoundException {
+        FlightDB.initialize();
+        SeatDB.initialize();
+        ArrayList<Flight> flightList = dbFlightSearch("Reykjavik Domestic Airport (RKV)","Akureyri Domestic Airport (AEY)", "2024-03-16");
+        Flight flight = flightList.get(0);
+        System.out.println(flight.getLocation());
+        ArrayList<Seat> seatsList = flight.getSeats();
+        System.out.println(seatsList.get(0).getBooked());
+    }
+
+
+
     // This method focuses on getting an input location and date and showing the user which seats are available.
     // So far there is only one flight so don't expect much.
     public static ArrayList<String> dbFindFlight(String location, String destination, String date) throws SQLException, ClassNotFoundException {

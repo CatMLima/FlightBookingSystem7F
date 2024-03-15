@@ -6,9 +6,10 @@ public class Seat {
     private Boolean isBooked;
     private Boolean isonHold;
 
-    public Seat(String seatName, String Tier, Boolean isBooked, Boolean isonHold)   {
+    public Seat(String seatName, Boolean isBooked, Boolean isonHold)   {
         this.seatName = seatName;
-        this.Tier = Tier;
+        // make tier be calculated and its value set here in the seat class.
+        //this.Tier = Tier;
         this.isBooked = isBooked;
         this.isonHold = isonHold;
     }

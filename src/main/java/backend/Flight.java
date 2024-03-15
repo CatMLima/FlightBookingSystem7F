@@ -4,17 +4,21 @@ import java.util.ArrayList;
 
 public class Flight {
 
-        private Airport destination;
-        private Airport source;
+        //private Airport destination;
+        //private Airport source;
+
+        private String destination;
+
+        private String location;
         private Date date;
-        private int id;
+        private String id;
         private ArrayList<Seat> seats;
         private String status;
 
         // Constructor
-        public Flight(Airport destination, Airport source, Date date, int id, ArrayList<Seat> seats, String status) {
+        public Flight(String location, String destination, Date date, String id, ArrayList<Seat> seats, String status) {
             this.destination = destination;
-            this.source = source;
+            this.location = location;
             this.date = date;
             this.id = id;
             this.seats = seats;
@@ -22,20 +26,20 @@ public class Flight {
         }
 
         // Getters and Setters
-        public Airport getDestination() {
+        public String getDestination() {
             return this.destination;
         }
 
-        public void setDestination(Airport destination) {
+        public void setDestination(String destination) {
             this.destination = destination;
         }
 
-        public Airport getSource() {
-            return this.source;
+        public String getLocation() {
+            return this.location;
         }
 
-        public void setSource(Airport source) {
-            this.source = source;
+        public void setLocation(String location) {
+            this.location = location;
         }
 
         public Date getDate() {
@@ -46,11 +50,11 @@ public class Flight {
             this.date = date;
         }
 
-        public int getId() {
+        public String getId() {
             return this.id;
         }
 
-        public void setId(int id) {
+        public void setId(String id) {
             this.id = id;
         }
 
