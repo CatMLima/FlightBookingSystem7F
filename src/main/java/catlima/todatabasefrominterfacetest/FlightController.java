@@ -1,11 +1,7 @@
 package catlima.todatabasefrominterfacetest;
 
 import backend.AirportDB;
-import backend.DataExchange;
 import backend.FlightDB;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
-import javafx.beans.value.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.*;
