@@ -5,7 +5,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="catlima.todatabasefrominterfacetest.SearchController">
    <children>
-      <HBox layoutX="9.0" layoutY="18.0" prefHeight="353.0" prefWidth="580.0">
+      <HBox layoutX="9.0" layoutY="18.0" prefHeight="336.0" prefWidth="580.0">
          <children>
             <VBox fx:id="fxLeftSide" prefHeight="353.0" prefWidth="304.0">
                <children>
@@ -27,5 +27,6 @@
             </VBox>
          </children>
       </HBox>
+      <Button fx:id="fxBookButton" layoutX="286.0" layoutY="361.0" mnemonicParsing="false" onAction="#onBook" text="Book" />
    </children>
 </Pane>

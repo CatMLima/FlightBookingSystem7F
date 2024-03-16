@@ -6,6 +6,8 @@ package catlima.todatabasefrominterfacetest;
 public enum View {
     SEARCH("search-view.fxml"),
 
+    BOOKING("booking-view.fxml"),
+
     FLIGHT("flight-control.fxml");
 
     private final String fileName;

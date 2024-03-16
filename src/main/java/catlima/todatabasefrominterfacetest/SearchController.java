@@ -1,6 +1,8 @@
 package catlima.todatabasefrominterfacetest;
 
 import backend.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,6 +36,9 @@ public class SearchController {
 
     private ArrayList<String> airportNames = new ArrayList<>();
 
+    @FXML
+    private Button fxBookButton;
+
     //Anything that needs to somehow be initialized should go in here.
     public void initialize() throws ClassNotFoundException {
         fxDepartureDate.setValue(LocalDate.now());
@@ -43,6 +48,7 @@ public class SearchController {
         SeatDB.initialize();
         PassengerDB.initialize();
         populateDropDown();
+        createBindings();
     }
 
 
@@ -52,6 +58,11 @@ public class SearchController {
         ObservableList<String> airportsObs = FXCollections.observableArrayList(airportNames);
         fxLocationPick.setItems(airportsObs);
         fxDestinationPick.setItems(airportsObs);
+    }
+
+    // This method should make sure that a user cannot click Book without first selecting a flight to view.
+    public void createBindings(){
+
     }
 
 
@@ -70,6 +81,11 @@ public class SearchController {
         ObservableList<Flight> testFlightObs = FXCollections.observableArrayList(flightArrayList);
         fxFlightList.setItems(testFlightObs);
 
+    }
+
+    @FXML
+    protected void onBook(ActionEvent actionEvent){
+        ViewSwitcher.switchTo(View.BOOKING, true);
     }
 
     public void onAdmin(ActionEvent actionEvent) {
