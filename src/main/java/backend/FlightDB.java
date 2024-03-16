@@ -43,7 +43,7 @@ public class FlightDB {
     }
 
     /*
-    Test method to create a flight object whenever a search is conducted.
+    This method will search based on given location, destination and date of take off and return an array list of Flight objects.
      */
     public static ArrayList<Flight> dbFlightSearch(String location, String destination, String date) throws SQLException{
         try{
@@ -80,37 +80,6 @@ public class FlightDB {
         System.out.println(flight.getLocation());
         ArrayList<Seat> seatsList = flight.getSeats();
         System.out.println(seatsList.get(0).getBooked());
-    }
-
-
-
-    // This method focuses on getting an input location and date and showing the user which seats are available.
-    // So far there is only one flight so don't expect much.
-    public static ArrayList<String> dbFindFlight(String location, String destination, String date) throws SQLException, ClassNotFoundException {
-        try{
-
-            // Testing that given the Location and Date of travels the name of the flight and time shows up.
-            String sql = "Select DISTINCT Flights.FlightID, DepTime from Flights, Airport a1, Airport a2 where Flights.FlightID = a1.FlightID " +
-                    "AND Flights.FlightID = a2.FlightID AND a1.Location = (?) AND a2.location = (?) AND DepDate = (?) " +
-                    "AND Taken=FALSE AND a1.FlightType='Departure' AND a2.FlightType='Arrival'";
-            PreparedStatement preparedStatement = c.prepareStatement(sql);
-            preparedStatement.setString(1, location);
-            preparedStatement.setString(2,destination);
-            preparedStatement.setString(3,date);
-            ResultSet result = preparedStatement.executeQuery();
-
-            // The array list that gets populated with the unique fligthID and departure time combinations for now.
-            ArrayList<String> flights = new ArrayList<>();
-
-            while(result.next()){
-                flights.add("flight: " + result.getString(1) + " at " + result.getString(2) + ".");
-            }
-            return flights;
-
-        } catch (Exception e){
-            System.out.println("Error fetching the chosen flight date and location.");
-            throw e;
-        }
     }
 
     /*
@@ -164,6 +133,15 @@ public class FlightDB {
         String query = "Select AirportID from AirportSolo WHERE Location=(?)";
         PreparedStatement prep = c.prepareStatement(query);
         prep.setString(1,location);
+        ResultSet result = prep.executeQuery();
+        return result.getString(1);
+    }
+
+    public static String fetchTime (String flightID, String depDate) throws SQLException {
+        String query = "Select DepTime from Flights WHERE FlightID = (?) AND DepDate = (?)";
+        PreparedStatement prep = c.prepareStatement(query);
+        prep.setString(1,flightID);
+        prep.setString(2,depDate);
         ResultSet result = prep.executeQuery();
         return result.getString(1);
     }

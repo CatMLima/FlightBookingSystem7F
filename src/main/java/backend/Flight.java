@@ -1,4 +1,5 @@
 package backend;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.ArrayList;
 
@@ -25,7 +26,16 @@ public class Flight {
             this.status = status;
         }
 
-        // Getters and Setters
+    @Override
+    public String toString() {
+        try {
+            return getId() + " at " + FlightDB.fetchTime(getId(), String.valueOf(getDate()));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Getters and Setters
         public String getDestination() {
             return this.destination;
         }

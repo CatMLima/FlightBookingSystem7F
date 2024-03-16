@@ -1,24 +1,22 @@
 package catlima.todatabasefrominterfacetest;
 
 import backend.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableListBase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import org.w3c.dom.Text;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class SearchController {
+
+    @FXML
+    private ListView<Flight> fxFlightList;
+
+    private ArrayList<Flight> flightArrayList = new ArrayList<>();
 
     @FXML
     private DatePicker fxDepartureDate;
@@ -29,15 +27,10 @@ public class SearchController {
     private Button fxSearch;
 
     @FXML
-    private ListView<String> fxFlightsView;
-
-    @FXML
     private ChoiceBox<String> fxLocationPick;
 
     @FXML
     private ChoiceBox<String> fxDestinationPick;
-
-    private ArrayList<String> flightsList = new ArrayList<>();
 
     private ArrayList<String> airportNames = new ArrayList<>();
 
@@ -72,10 +65,10 @@ public class SearchController {
         String date = String.valueOf(fxDepartureDate.getValue());
 
         if (location != null){
-            flightsList = FlightDB.dbFindFlight(location,destination,date);
+            flightArrayList = FlightDB.dbFlightSearch(location, destination, date);
         }
-        ObservableList<String> flightsObs = FXCollections.observableArrayList(flightsList);
-        fxFlightsView.setItems(flightsObs);
+        ObservableList<Flight> testFlightObs = FXCollections.observableArrayList(flightArrayList);
+        fxFlightList.setItems(testFlightObs);
 
     }
 

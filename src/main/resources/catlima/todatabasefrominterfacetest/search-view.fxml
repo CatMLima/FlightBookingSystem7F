@@ -15,7 +15,7 @@
                   <ChoiceBox fx:id="fxDestinationPick" prefWidth="150.0" />
                   <DatePicker fx:id="fxDepartureDate" promptText="select departure date" />
                   <Label text="List of Flights" />
-                  <ListView fx:id="fxFlightsView" prefHeight="200.0" prefWidth="200.0" />
+                  <ListView fx:id="fxFlightList" prefHeight="200.0" prefWidth="200.0" />
                </children>
             </VBox>
             <VBox prefHeight="353.0" prefWidth="267.0">
