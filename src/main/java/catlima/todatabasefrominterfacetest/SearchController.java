@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.sql.SQLException;
+import java.text.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -38,6 +39,26 @@ public class SearchController {
 
     @FXML
     private Button fxBookButton;
+
+    private FlightDB flightDB;
+
+    private AirportDB airportDB;
+
+    private BookingDB bookingDB;
+
+    private SeatDB seatDB;
+
+    private PassengerDB passengerDB;
+
+    /*
+    public SearchController(FlightDB flightDB, AirportDB airportDB, BookingDB bookingDB, SeatDB seatDB, PassengerDB passengerDB){
+        this.flightDB = flightDB;
+        this.airportDB = airportDB;
+        this.bookingDB = bookingDB;
+        this.seatDB = seatDB;
+        this.passengerDB = passengerDB;
+    }
+     */
 
     //Anything that needs to somehow be initialized should go in here.
     public void initialize() throws ClassNotFoundException {
@@ -70,7 +91,7 @@ public class SearchController {
     TO TEST IT: Pick the Reykjavik Domestic Airport (RKV), Vatnsmýri, 101 Reykjavík as a location and the Urðargill 15, 600 Akureyri as destination and the date 6/6/2024
      */
     @FXML
-    protected void onSearchClick(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+    protected void onSearchClick(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, ParseException {
         String location = fxLocationPick.getValue();
         String destination = fxDestinationPick.getValue();
         String date = String.valueOf(fxDepartureDate.getValue());

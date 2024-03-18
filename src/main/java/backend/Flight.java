@@ -11,31 +11,40 @@ public class Flight {
         private String destination;
 
         private String location;
-        private Date date;
+        private Date departureDate;
+
+        private Date arrivalDate;
         private String id;
         private ArrayList<Seat> seats;
         private String status;
 
+        private int flightDuration;
+
         // Constructor
-        public Flight(String location, String destination, Date date, String id, ArrayList<Seat> seats, String status) {
+        public Flight(String location, String destination, Date departureDate, Date arrivalDate, String id, ArrayList<Seat> seats, String status) {
             this.destination = destination;
             this.location = location;
-            this.date = date;
+            this.departureDate = departureDate;
+            this.arrivalDate = arrivalDate;
             this.id = id;
             this.seats = seats;
             this.status = status;
+            this.flightDuration = calculateDuration();
         }
 
-    @Override
-    public String toString() {
-        try {
-            return getId() + " at " + FlightDB.fetchTime(getId(), String.valueOf(getDate()));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        @Override
+        public String toString() {
+            //return getId() + " at " + FlightDB.fetchTime(getId(), String.valueOf(getDate()));
+            return getId() + " at " + getDepartureDate().toString();
         }
-    }
 
-    // Getters and Setters
+        public int calculateDuration(){
+            long timeDifference = getArrivalDate().getTime() - getDepartureDate().getTime();
+            long minutes = timeDifference/(1000*60);
+            return (int) minutes;
+        }
+
+        // Getters and Setters
         public String getDestination() {
             return this.destination;
         }
@@ -52,14 +61,17 @@ public class Flight {
             this.location = location;
         }
 
-        public Date getDate() {
-            return this.date;
+        public Date getDepartureDate() {
+            return this.departureDate;
         }
 
-        public void setDate(Date date) {
-            this.date = date;
+        public void setDepartureDate(Date date) {
+            this.departureDate = date;
         }
 
+        public Date getArrivalDate(){ return this.arrivalDate;}
+
+        public void setArrivalDate(Date date){ this.arrivalDate = date;}
         public String getId() {
             return this.id;
         }
