@@ -65,13 +65,22 @@ public class Flight {
             return this.departureDate;
         }
 
+        public int getDuration() {
+            return this.flightDuration;
+        }
+
         public void setDepartureDate(Date date) {
             this.departureDate = date;
+            this.flightDuration = this.calculateDuration();
         }
 
         public Date getArrivalDate(){ return this.arrivalDate;}
 
-        public void setArrivalDate(Date date){ this.arrivalDate = date;}
+        public void setArrivalDate(Date date){ 
+            this.arrivalDate = date;
+            this.flightDuration = this.calculateDuration();
+        }
+
         public String getId() {
             return this.id;
         }
