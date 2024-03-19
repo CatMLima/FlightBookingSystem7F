@@ -7,8 +7,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.*;
 import java.time.LocalDate;
@@ -106,7 +111,27 @@ public class SearchController {
 
     @FXML
     protected void onBook(ActionEvent actionEvent){
-        ViewSwitcher.switchTo(View.BOOKING, true);
+        //ViewSwitcher.switchTo(View.BOOKING, true);
+        try {
+            // Load the booking FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("booking-view.fxml"));
+            Parent root = loader.load();
+
+            // Get the booking controller
+            BookingController bookingController = loader.getController();
+
+            // Pass the selected flight to the booking controller
+            Flight selectedFlight = fxFlightList.getSelectionModel().getSelectedItem();
+            bookingController.setFlight(selectedFlight);
+
+            // Show the booking view
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) fxFlightList.getScene().getWindow(); // Assuming listView is part of your current scene
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onAdmin(ActionEvent actionEvent) {

@@ -8,4 +8,6 @@ module catlima.todatabasefrominterfacetest {
 
     opens catlima.todatabasefrominterfacetest to javafx.fxml;
     exports catlima.todatabasefrominterfacetest;
+    exports backend;
 }
+
