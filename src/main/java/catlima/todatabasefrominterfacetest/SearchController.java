@@ -24,6 +24,9 @@ public class SearchController {
     @FXML
     private ListView<Flight> fxFlightList;
 
+    @FXML
+    private Label fxPricesFrom;
+
     private ArrayList<Flight> flightArrayList = new ArrayList<>();
 
     @FXML
@@ -88,6 +91,13 @@ public class SearchController {
 
     // This method should make sure that a user cannot click Book without first selecting a flight to view.
     public void createBindings(){
+        fxFlightList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Flight>() {
+            @Override
+            public void changed(ObservableValue<? extends Flight> observableValue, Flight flight, Flight t1) {
+                fxPricesFrom.setText(String.valueOf(t1.getDuration()*300));
+            }
+        });
+
 
     }
 
