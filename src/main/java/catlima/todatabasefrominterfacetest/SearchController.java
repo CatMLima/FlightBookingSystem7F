@@ -110,8 +110,17 @@ public class SearchController {
     }
 
     @FXML
-    protected void onBook(ActionEvent actionEvent){
-        //ViewSwitcher.switchTo(View.BOOKING, true);
+    protected void onBook(ActionEvent actionEvent) throws IOException {
+
+        /*
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(View.BOOKING.getFileName()));
+        Parent root = loader.load();
+
+        BookingController bookingController = loader.getController();
+        bookingController.setFlight(fxFlightList.getSelectionModel().getSelectedItem());
+        ViewSwitcher.switchTo(View.BOOKING, true);
+        */
+
         try {
             // Load the booking FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("booking-view.fxml"));

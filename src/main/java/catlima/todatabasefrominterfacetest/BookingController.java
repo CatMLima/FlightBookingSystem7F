@@ -3,6 +3,8 @@ package catlima.todatabasefrominterfacetest;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import backend.Booking;
@@ -10,8 +12,10 @@ import backend.BookingDB;
 import backend.Flight;
 import backend.Passenger;
 import backend.Seat;
-import javafx.fxml.FXML;
+import javafx.fxml.*;
+import javafx.scene.*;
 import javafx.scene.control.Label;
+import javafx.stage.*;
 
 public class BookingController {
 
@@ -47,7 +51,22 @@ public class BookingController {
     }
 
     public void onReturn(ActionEvent actionEvent){
-        ViewSwitcher.switchTo(View.SEARCH, true);
+
+        //ViewSwitcher.switchTo(View.SEARCH, true);
+
+        try {
+            // Load the booking FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("search-view.fxml"));
+            Parent root = loader.load();
+
+            // Show the booking view
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) fxCurrentFlight.getScene().getWindow(); // Assuming listView is part of your current scene
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setFlight(Flight selectedFlight) {
