@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SearchControllerTest {
+public class FlightControllerTest {
 
     Date departureDate = Date.valueOf("2024-06-06 20:00");
 

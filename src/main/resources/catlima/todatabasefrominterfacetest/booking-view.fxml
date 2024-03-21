@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="catlima.todatabasefrominterfacetest.BookingController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="catlima.todatabasefrominterfacetest.BookingUI">
    <children>
       <HBox layoutX="11.0" layoutY="78.0" prefHeight="264.0" prefWidth="571.0">
          <children>
@@ -19,6 +19,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
@@ -36,6 +37,8 @@
                   <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Label text="Flight Number" />
                   <Label fx:id="fxCurrentFlight" GridPane.columnIndex="1" />
+                  <Label text="Luggage (not carry-on)" GridPane.rowIndex="7" />
+                  <CheckBox fx:id="fxBaggage" mnemonicParsing="false" text="Yes" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                </children>
             </GridPane>
             <Pane prefHeight="264.0" prefWidth="306.0" />

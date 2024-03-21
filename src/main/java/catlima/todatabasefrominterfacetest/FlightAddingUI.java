@@ -10,7 +10,7 @@ import javafx.scene.control.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class FlightController {
+public class FlightAddingUI {
 
     /*
     This class is responsible for creating new flights. All of their seats will be available to begin with and can later be populated.

@@ -19,7 +19,7 @@ import java.text.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class SearchController {
+public class FlightSearchUI {
 
     @FXML
     private ListView<Flight> fxFlightList;
@@ -137,7 +137,7 @@ public class SearchController {
             Parent root = loader.load();
 
             // Get the booking controller
-            BookingController bookingController = loader.getController();
+            BookingUI bookingController = loader.getController();
 
             // Pass the selected flight to the booking controller
             Flight selectedFlight = fxFlightList.getSelectionModel().getSelectedItem();
