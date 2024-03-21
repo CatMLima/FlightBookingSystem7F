@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class ConnectionFailMock implements FlightDBInterface{
+
+
+    public ConnectionFailMock(Flight flight){
+
+    }
     @Override
     public void initialize() throws ClassNotFoundException {
 

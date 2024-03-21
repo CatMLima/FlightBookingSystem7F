@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FlightControllerTest {
     ArrayList<Seat> seats = new ArrayList<>();
@@ -28,10 +29,8 @@ public class FlightControllerTest {
 
     @BeforeEach
     public void setUp() throws ParseException {
-
         flight = new Flight("Reykjavik", "Akureyri", depDateTime, arrDateTime,"RVK001",
                 seats, "On Time");
-
     }
 
     @Test
@@ -42,5 +41,19 @@ public class FlightControllerTest {
         assertEquals("RVK001", result.get(0).getId());
     }
 
+    @Test
+    public void updateFlightTest() throws SQLException {
+        FlightDBInterface connectionSuccess = new ConnectionSuccessMock(flight);
+        FakeFlightController flightController = new FakeFlightController(connectionSuccess);
+        flightController.updateStatus(flight, "Late");
+        assertEquals("Late", flight.getStatus());
+    }
+
+    @Test
+    public void testConnectionFailure(){
+        FlightDBInterface connectionFailure = new ConnectionFailMock(flight);
+        FakeFlightController flightController = new FakeFlightController(connectionFailure);
+        assertThrows(SQLException.class, () -> flightController.searchLocation("Reykjavik"));
+    }
 
 }
