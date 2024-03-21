@@ -6,27 +6,40 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FlightControllerTest {
-
-    Date departureDate = Date.valueOf("2024-06-06 20:00");
-    Date arrivalDate = Date.valueOf("2024-06-06 20:45");
     ArrayList<Seat> seats = new ArrayList<>();
 
     Flight flight;
 
+    String departureDateTime = "2024-06-06 20:00";
+    String arrivalDateTime = "2024-06-06 20:45";
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    java.util.Date depDateTime = dateFormat.parse(departureDateTime);
+    java.util.Date arrDateTime = dateFormat.parse(arrivalDateTime);
+
+    public FlightControllerTest() throws ParseException {
+    }
+
     @BeforeEach
-    public void setUp(){
-        flight = new Flight("Reykjavik", "Akureyri", Date.valueOf("2024-06-06 20:00"),
-                Date.valueOf("2024-06-06 20:45"), "RVK001", seats, "On Time");
+    public void setUp() throws ParseException {
+
+        flight = new Flight("Reykjavik", "Akureyri", depDateTime, arrDateTime,"RVK001",
+                seats, "On Time");
+
     }
 
     @Test
-    public void otherTest() {
-       assertEquals(flight.getId(), "RVK001");
+    public void searchLocationTest() throws SQLException {
+        FlightDBInterface connectionSuccess = new ConnectionSuccessMock(flight);
+        FakeFlightController flightController = new FakeFlightController(connectionSuccess);
+        ArrayList<Flight> result = flightController.searchLocation("Reykjavik");
+        assertEquals("RVK001", result.get(0).getId());
     }
 
 

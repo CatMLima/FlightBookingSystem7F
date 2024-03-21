@@ -10,8 +10,8 @@ public class ConnectionSuccessMock implements FlightDBInterface{
 
     Flight flight;
 
-    public ConnectionSuccessMock(String location, String destination, Date departureDate, Date arrDate, String id, ArrayList<Seat> seats, String status){
-        flight = new Flight(location,destination,departureDate,arrDate,id,seats,status);
+    public ConnectionSuccessMock(Flight flight){
+        this.flight = flight;
     }
     @Override
     public void initialize() throws ClassNotFoundException {
@@ -49,8 +49,8 @@ public class ConnectionSuccessMock implements FlightDBInterface{
     @Override
     public ArrayList<Flight> selectPrice(int price) throws SQLException{
         ArrayList<Flight> flights = new ArrayList<>();
-        int flightprice = flight.calculateDuration() * 300;
-        if (flightprice == price){
+        int flightPrice = flight.calculateDuration() * 300;
+        if (flightPrice == price){
             flights.add(flight);
             return flights;
         }
