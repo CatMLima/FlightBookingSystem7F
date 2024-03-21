@@ -20,6 +20,8 @@ public class Flight {
 
         private int flightDuration;
 
+        static final int KR_PER_MIN = 300;
+
         // Constructor
         public Flight(String location, String destination, Date departureDate, Date arrivalDate, String id, ArrayList<Seat> seats, String status) {
             this.destination = destination;
@@ -114,6 +116,10 @@ public class Flight {
                 }
             }
             return availableSeats;
+        }
+
+        public int getStartingPrice() {
+            return this.getDuration() * KR_PER_MIN;
         }
 
         // TODO: implement updateFlightStatus method

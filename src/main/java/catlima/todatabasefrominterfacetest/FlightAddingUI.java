@@ -60,7 +60,7 @@ public class FlightAddingUI {
     }
 
     public void onCreateFlight(ActionEvent actionEvent) throws SQLException {
-        FlightDB.createFlight(fxFlightID.getText(),fxLocationChoices.getValue(),fxDestinationChoices.getValue(),String.valueOf(fxDepartureDate.getValue()),
+        FlightDB.create(fxFlightID.getText(),fxLocationChoices.getValue(),fxDestinationChoices.getValue(),String.valueOf(fxDepartureDate.getValue()),
                 fxDepartureTime.getText(),String.valueOf(fxDepartureDate.getValue()),fxArrivalTime.getText());
         clearData();
     }

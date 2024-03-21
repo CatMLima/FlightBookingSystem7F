@@ -30,6 +30,8 @@ public class FlightDB {
 
     static Connection c;
 
+    static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
     // initializes the connection from the controller
     public static void initialize() throws ClassNotFoundException {
         c = null;
@@ -46,7 +48,7 @@ public class FlightDB {
     /*
     This method will search based on given location, destination and date of take off and return an array list of Flight objects.
      */
-    public static ArrayList<Flight> dbFlightSearch(String location, String destination, String date) throws SQLException, ParseException {
+    public static ArrayList<Flight> select(String location, String destination, String date) throws SQLException, ParseException {
         try{
 
             String sql = "Select DISTINCT Flights.FlightID, DepTime, ArrTime from Flights, Airport a1, Airport a2 where Flights.FlightID = a1.FlightID " +
@@ -79,24 +81,13 @@ public class FlightDB {
         }
     }
 
-    // testing dbFlightSearch
-    public static void main(String [] args) throws SQLException, ClassNotFoundException, ParseException {
-        FlightDB.initialize();
-        SeatDB.initialize();
-        ArrayList<Flight> flightList = dbFlightSearch("Reykjavik Domestic Airport (RKV)","Akureyri Domestic Airport (AEY)", "2024-03-16");
-        Flight flight = flightList.get(0);
-        System.out.println(flight.getLocation());
-        ArrayList<Seat> seatsList = flight.getSeats();
-        System.out.println(seatsList.get(0).getBooked());
-    }
-
     /*
     This method is responsible for inserting new flights into the database, it receives information about
     the flightID, departure date and time, arrival date and time, and from which airport to which airport.
     The main goal here is that we create a flight first and then add it to two airports, where it is a
     departure and where it is an arrival.
      */
-    public static void createFlight(String flightID, String location, String destination, String depDate, String depTime, String arrDate, String arrTime) throws SQLException {
+    public static void create(String flightID, String location, String destination, String depDate, String depTime, String arrDate, String arrTime) throws SQLException {
         String locationID = fetchID(location);
         String destinationID = fetchID(destination);
         int count = seats.length;
@@ -137,6 +128,63 @@ public class FlightDB {
         }
     }
 
+    public static void update(Flight f, String depDate, String depTime, String arrDate, String arrTime, String status) {
+        try {
+            String updateQuery = "UPDATE Flights " +
+                             "SET DepDate = (?), DepTime = (?), ArrDate = (?), ArrTime = (?), Status = (?) " +
+                             "WHERE FlightID = (?) AND DepDate = (?) AND FlightID IN " +
+                             "(SELECT FlightID FROM Airport WHERE Location = (?) AND FlightType = 'Departure')";
+            PreparedStatement updateStatement = c.prepareStatement(updateQuery);
+            updateStatement.setString(1, depDate);
+            updateStatement.setString(2, depTime);
+            updateStatement.setString(3, arrDate);
+            updateStatement.setString(4, arrTime);
+            updateStatement.setString(5, status);
+            updateStatement.setString(6, f.getId());
+            updateStatement.setString(7, depDate);
+            updateStatement.setString(8, f.getId());
+            updateStatement.executeUpdate();
+    
+            System.out.println("Flight updated successfully.");
+        } catch (SQLException e) {
+            System.out.println("Error updating the flight.");
+            e.printStackTrace();
+        }
+    }
+
+    public static void delete(Flight f) {
+        try {
+            // Delete the flight from the Flights table
+            String deleteFlightQuery = "DELETE FROM Flights " +
+                                       "WHERE FlightID = (?) AND DepDate = (?) AND FlightID IN " +
+                                       "(SELECT FlightID FROM Airport WHERE Location = (?) AND FlightType = 'Departure')";
+            PreparedStatement deleteFlightStatement = c.prepareStatement(deleteFlightQuery);
+            deleteFlightStatement.setString(1, f.getId());
+            deleteFlightStatement.setString(2, dateFormat.format(f.getDepartureDate()));
+            deleteFlightStatement.setString(3, f.getLocation());
+            int rowsAffected = deleteFlightStatement.executeUpdate();
+    
+            if (rowsAffected > 0) {
+                String locationID = fetchID(f.getLocation());
+
+                // Delete the flight from the Airport table
+                String deleteAirportQuery = "DELETE FROM Airport " +
+                                            "WHERE FlightID = (?) and LocationID = (?)";
+                PreparedStatement deleteAirportStatement = c.prepareStatement(deleteAirportQuery);
+                deleteAirportStatement.setString(1, f.getId());
+                deleteAirportStatement.setString(2, locationID);
+                deleteAirportStatement.executeUpdate();
+    
+                System.out.println("Flight deleted successfully.");
+            } else {
+                System.out.println("No flight found with the provided details.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error deleting the flight.");
+            e.printStackTrace();
+        }
+    }
+
     public static String fetchID(String location) throws SQLException {
         String query = "Select AirportID from AirportSolo WHERE Location=(?)";
         PreparedStatement prep = c.prepareStatement(query);
@@ -156,5 +204,16 @@ public class FlightDB {
 
     public static void closeConnection() throws SQLException {
         c.close();
+    }
+
+    // testing dbFlightSearch
+    public static void main(String [] args) throws SQLException, ClassNotFoundException, ParseException {
+        FlightDB.initialize();
+        SeatDB.initialize();
+        ArrayList<Flight> flightList = select("Reykjavik Domestic Airport (RKV)","Akureyri Domestic Airport (AEY)", "2024-03-16");
+        Flight flight = flightList.get(0);
+        System.out.println(flight.getLocation());
+        ArrayList<Seat> seatsList = flight.getSeats();
+        System.out.println(seatsList.get(0).getBooked());
     }
 }

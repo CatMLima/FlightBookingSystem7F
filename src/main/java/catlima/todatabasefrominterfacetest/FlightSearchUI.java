@@ -112,7 +112,7 @@ public class FlightSearchUI {
         String date = String.valueOf(fxDepartureDate.getValue());
 
         if (location != null){
-            flightArrayList = FlightDB.dbFlightSearch(location, destination, date);
+            flightArrayList = FlightDB.select(location, destination, date);
         }
         ObservableList<Flight> testFlightObs = FXCollections.observableArrayList(flightArrayList);
         fxFlightList.setItems(testFlightObs);
