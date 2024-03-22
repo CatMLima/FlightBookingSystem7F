@@ -46,7 +46,23 @@ public class ConnectionFailMock implements FlightDBInterface{
     }
 
     @Override
-    public void update(Flight flight, String status) throws SQLException{
-        throw new SQLException();
+    public void update(Flight flight, String depDate, String depTime, String arrDate, String arrTime, String status) throws SQLException {
+
     }
+
+    @Override
+    public void create(String flightID, String location, String destination, String depDate, String depTime, String arrDate, String arrTime) throws SQLException {
+
+    }
+
+    @Override
+    public void delete(Flight flight) {
+
+    }
+
+    @Override
+    public String fetchID(String location) throws SQLException {
+        return null;
+    }
+
 }

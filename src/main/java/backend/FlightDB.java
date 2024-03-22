@@ -185,6 +185,7 @@ public class FlightDB {
         }
     }
 
+    // Returns the airport id for a given airport location
     public static String fetchID(String location) throws SQLException {
         String query = "Select AirportID from AirportSolo WHERE Location=(?)";
         PreparedStatement prep = c.prepareStatement(query);
