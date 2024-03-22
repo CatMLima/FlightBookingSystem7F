@@ -7,14 +7,18 @@ import java.util.ArrayList;
 public class FlightController {
 
     ArrayList<Flight> flights = new ArrayList<Flight>();
-    FlightDB db = new FlightDB();
+    private FlightDB db;
+
+    public FlightController(FlightDB flightDB){
+        db = flightDB;
+    }
 
     public void addFlight(String flightID, String location, String destination, String depDate, String depTime, String arrDate, String arrTime) throws SQLException {
-        FlightDB.create(flightID, location, destination, depDate, depTime, arrDate, arrTime);
+        db.create(flightID, location, destination, depDate, depTime, arrDate, arrTime);
     }
 
     public ArrayList<Flight> searchFlights(String departureLocation, String arrivalLocation, String date) throws SQLException, ParseException {
-        return FlightDB.select(departureLocation, arrivalLocation, date);
+        return db.select(departureLocation, arrivalLocation, date);
     }
 
     public ArrayList<Flight> searchFlightsWithPrice(String departureLocation, String arrivalLocation, String date, int maxPrice) throws SQLException, ParseException {
@@ -31,10 +35,10 @@ public class FlightController {
     }
 
     public void updateFlight(Flight f, String depDate, String depTime, String arrDate, String arrTime, String status) {
-        FlightDB.update(f, depDate, depTime, arrDate, arrTime, status);
+        db.update(f, depDate, depTime, arrDate, arrTime, status);
     }
 
     public void deleteFlight(Flight f) {
-        FlightDB.delete(f);
+        db.delete(f);
     }
 }
