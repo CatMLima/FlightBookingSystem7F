@@ -31,7 +31,7 @@ public class ConnectionFailMock implements FlightDBInterface{
     }
 
     @Override
-    public ArrayList<Flight> selectLocation(String location) throws SQLException{
+    public ArrayList<Flight> select(String location, String destination, String date) throws SQLException{
         throw new SQLException();
     }
 

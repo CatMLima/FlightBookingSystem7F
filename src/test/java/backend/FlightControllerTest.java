@@ -37,7 +37,7 @@ public class FlightControllerTest {
     public void searchLocationTest() throws SQLException {
         FlightDBInterface connectionSuccess = new ConnectionSuccessMock(flight);
         FakeFlightController flightController = new FakeFlightController(connectionSuccess);
-        ArrayList<Flight> result = flightController.searchLocation("Reykjavik");
+        ArrayList<Flight> result = flightController.searchLocation("Reykjavik", "Akureyri","2024-06-06");
         assertEquals("RVK001", result.get(0).getId());
     }
 
@@ -53,7 +53,7 @@ public class FlightControllerTest {
     public void testConnectionFailure(){
         FlightDBInterface connectionFailure = new ConnectionFailMock(flight);
         FakeFlightController flightController = new FakeFlightController(connectionFailure);
-        assertThrows(SQLException.class, () -> flightController.searchLocation("Reykjavik"));
+        assertThrows(SQLException.class, () -> flightController.searchLocation("Reykjavik", "Akureyri","2024-06-06"));
     }
 
 }

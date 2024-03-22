@@ -11,7 +11,7 @@ public interface FlightDBInterface {
     void createFlight(String flightID, String location, String destination, String depDate, String depTime, String arrDate, String arrTime) throws SQLException;
     void closeConnection() throws SQLException;
 
-    ArrayList<Flight> selectLocation(String location) throws SQLException;
+    ArrayList<Flight> select(String location, String destination, String date) throws SQLException;
 
     ArrayList<Flight> selectPrice(int price) throws SQLException;
 

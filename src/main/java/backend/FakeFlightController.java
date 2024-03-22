@@ -11,8 +11,8 @@ public class FakeFlightController {
         this.flightDBInterface = flightDBInterface;
     }
 
-    public ArrayList<Flight> searchLocation(String location) throws SQLException {
-        return flightDBInterface.selectLocation(location);
+    public ArrayList<Flight> searchLocation(String location, String destination, String date) throws SQLException {
+        return flightDBInterface.select(location, destination, date);
     }
 
     public ArrayList<Flight> searchPrice(int price) throws SQLException {

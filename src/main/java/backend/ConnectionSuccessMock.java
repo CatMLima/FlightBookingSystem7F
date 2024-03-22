@@ -37,7 +37,7 @@ public class ConnectionSuccessMock implements FlightDBInterface{
     }
 
     @Override
-    public ArrayList<Flight> selectLocation(String location) throws SQLException{
+    public ArrayList<Flight> select(String location, String destination, String date) throws SQLException{
         ArrayList<Flight> flights = new ArrayList<>();
         if (flight.getLocation().equals(location)){
             flights.add(flight);

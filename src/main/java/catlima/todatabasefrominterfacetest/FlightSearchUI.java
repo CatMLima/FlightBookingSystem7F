@@ -110,6 +110,7 @@ public class FlightSearchUI {
         String location = fxLocationPick.getValue();
         String destination = fxDestinationPick.getValue();
         String date = String.valueOf(fxDepartureDate.getValue());
+        System.out.println(String.valueOf(fxDepartureDate.getValue()));
 
         if (location != null){
             flightArrayList = FlightDB.select(location, destination, date);
