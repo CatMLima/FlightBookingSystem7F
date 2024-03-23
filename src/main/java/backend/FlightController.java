@@ -42,6 +42,21 @@ public class FlightController {
         return db.getAirportNames();
     }
 
+    // TODO: Code how the available seat display is coded, both to show what is available and what happens when a seat is chosen.
+    public Seat[][] getSeatAvailability(Flight flight){
+        Seat [][] seats = new Seat[20][4];
+        int columns = 4;
+        int rows = 20;
+        int seatCount = 0;
+        for (int i = 0; i < rows; i++){
+            for (int j = 0; j < columns; j++){
+                seats[i][j] = flight.getSeats().get(seatCount++);
+            }
+        }
+
+        return seats;
+    }
+
     public void deleteFlight(Flight f) {
         db.delete(f);
     }

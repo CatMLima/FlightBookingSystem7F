@@ -30,10 +30,13 @@ public class FlightDB {
 
     static Connection c;
 
+    private SeatDB seatDB;
+
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     public FlightDB() throws ClassNotFoundException {
         initialize();
+        seatDB = new SeatDB();
     }
 
 
@@ -76,7 +79,7 @@ public class FlightDB {
                 java.util.Date depDateTime = dateFormat.parse(departureDateTime);
                 java.util.Date arrDateTime = dateFormat.parse(arrivalDateTime);
 
-                flights.add(new Flight(location,destination,depDateTime, arrDateTime,flightID, SeatDB.findSeats(flightID,date), "On Time"));
+                flights.add(new Flight(location,destination,depDateTime, arrDateTime,flightID, seatDB.findSeats(flightID,date), "On Time"));
             }
             return flights;
 
@@ -199,6 +202,8 @@ public class FlightDB {
         return result.getString(1);
     }
 
+    // not really used and may be deleted later.
+
     public String fetchTime (String flightID, String depDate) throws SQLException {
         String query = "Select DepTime from Flights WHERE FlightID = (?) AND DepDate = (?)";
         PreparedStatement prep = c.prepareStatement(query);
@@ -212,6 +217,7 @@ public class FlightDB {
         c.close();
     }
 
+    // to populate any lists that store all the possible locations and destinations within Iceland
     public ArrayList<String> getAirportNames(){
         try{
             String query = "Select DISTINCT Location from AirportSolo";

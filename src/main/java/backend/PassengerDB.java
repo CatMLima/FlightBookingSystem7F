@@ -8,6 +8,10 @@ public class PassengerDB {
     /* Where all queries about finding and updating and creating Passengers will be processed.*/
     static Connection c;
 
+    public PassengerDB() throws ClassNotFoundException {
+        initialize();
+    }
+
     // initializes the connection from the controller
     public static void initialize() throws ClassNotFoundException {
         c = null;

@@ -8,6 +8,10 @@ public class SeatDB {
 
     static Connection c;
 
+    public SeatDB() throws ClassNotFoundException {
+        initialize();
+    }
+
     // initializes the connection from the controller
     public static void initialize() throws ClassNotFoundException {
         c = null;
@@ -22,7 +26,7 @@ public class SeatDB {
     }
 
     // This method finds the seats for a given flight in order to create the seat array for the flight object.
-    public static ArrayList<Seat> findSeats(String flightID, String depDate) throws SQLException {
+    public ArrayList<Seat> findSeats(String flightID, String depDate) throws SQLException {
         // The flights objects need location, destination, date, id, ArrayList<Seat> seats, status
         String sqlSeats = "Select Seat, Taken from Flights where FlightId = (?) AND DepDate = (?)";
         PreparedStatement prepSeats = c.prepareStatement(sqlSeats);
@@ -39,7 +43,7 @@ public class SeatDB {
 
     }
 
-    public static void closeConnection() throws SQLException {
+    public void closeConnection() throws SQLException {
         c.close();
     }
 }
