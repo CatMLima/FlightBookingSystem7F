@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class FlightDB {
     /* Where all queries about finding flights, updating flights and adding flights will reside.*/
 
-    final static String [] seats = {"1A","1B","1C","1D",
+    final String [] seats = {"1A","1B","1C","1D",
             "2A","2B","2C","2D",
             "3A","3B","3C","3D",
             "4A","4B","4C","4D",
@@ -30,7 +30,12 @@ public class FlightDB {
 
     static Connection c;
 
-    static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+    public FlightDB() throws ClassNotFoundException {
+        initialize();
+    }
+
 
     // initializes the connection from the controller
     public static void initialize() throws ClassNotFoundException {
@@ -48,7 +53,7 @@ public class FlightDB {
     /*
     This method will search based on given location, destination and date of take off and return an array list of Flight objects.
      */
-    public static ArrayList<Flight> select(String location, String destination, String date) throws SQLException, ParseException {
+    public ArrayList<Flight> select(String location, String destination, String date) throws SQLException, ParseException {
         try{
 
             String sql = "Select DISTINCT Flights.FlightID, DepTime, ArrTime from Flights, Airport a1, Airport a2 where Flights.FlightID = a1.FlightID " +
@@ -87,7 +92,7 @@ public class FlightDB {
     The main goal here is that we create a flight first and then add it to two airports, where it is a
     departure and where it is an arrival.
      */
-    public static void create(String flightID, String location, String destination, String depDate, String depTime, String arrDate, String arrTime) throws SQLException {
+    public void create(String flightID, String location, String destination, String depDate, String depTime, String arrDate, String arrTime) throws SQLException {
         String locationID = fetchID(location);
         String destinationID = fetchID(destination);
         int count = seats.length;
@@ -128,7 +133,7 @@ public class FlightDB {
         }
     }
 
-    public static void update(Flight f, String depDate, String depTime, String arrDate, String arrTime, String status) {
+    public void update(Flight f, String depDate, String depTime, String arrDate, String arrTime, String status) {
         try {
             String updateQuery = "UPDATE Flights " +
                              "SET DepDate = (?), DepTime = (?), ArrDate = (?), ArrTime = (?), Status = (?) " +
@@ -152,7 +157,7 @@ public class FlightDB {
         }
     }
 
-    public static void delete(Flight f) {
+    public void delete(Flight f) {
         try {
             // Delete the flight from the Flights table
             String deleteFlightQuery = "DELETE FROM Flights " +
@@ -186,7 +191,7 @@ public class FlightDB {
     }
 
     // Returns the airport id for a given airport location
-    public static String fetchID(String location) throws SQLException {
+    public String fetchID(String location) throws SQLException {
         String query = "Select AirportID from AirportSolo WHERE Location=(?)";
         PreparedStatement prep = c.prepareStatement(query);
         prep.setString(1,location);
@@ -194,7 +199,7 @@ public class FlightDB {
         return result.getString(1);
     }
 
-    public static String fetchTime (String flightID, String depDate) throws SQLException {
+    public String fetchTime (String flightID, String depDate) throws SQLException {
         String query = "Select DepTime from Flights WHERE FlightID = (?) AND DepDate = (?)";
         PreparedStatement prep = c.prepareStatement(query);
         prep.setString(1,flightID);
@@ -203,11 +208,30 @@ public class FlightDB {
         return result.getString(1);
     }
 
-    public static void closeConnection() throws SQLException {
+    public void closeConnection() throws SQLException {
         c.close();
     }
 
+    public ArrayList<String> getAirportNames(){
+        try{
+            String query = "Select DISTINCT Location from AirportSolo";
+            PreparedStatement prep = c.prepareStatement(query);
+            ResultSet result = prep.executeQuery();
+
+            ArrayList<String> airportLocations = new ArrayList<>();
+            while (result.next()){
+                airportLocations.add(result.getString(1));
+            }
+            return airportLocations;
+
+        } catch (Exception e){
+            System.out.println("Error in finding all existing airports.");
+        }
+        return null;
+    }
+
     // testing dbFlightSearch
+    /*
     public static void main(String [] args) throws SQLException, ClassNotFoundException, ParseException {
         FlightDB.initialize();
         SeatDB.initialize();
@@ -217,4 +241,6 @@ public class FlightDB {
         ArrayList<Seat> seatsList = flight.getSeats();
         System.out.println(seatsList.get(0).getBooked());
     }
+    *
+     */
 }

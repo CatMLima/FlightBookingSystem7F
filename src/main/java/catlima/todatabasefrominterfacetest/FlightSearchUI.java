@@ -50,7 +50,7 @@ public class FlightSearchUI {
 
     private FlightDB flightDB;
 
-    private AirportDB airportDB;
+    private AirportDBdeletemaybe airportDB;
 
     private BookingDB bookingDB;
 
@@ -58,21 +58,15 @@ public class FlightSearchUI {
 
     private PassengerDB passengerDB;
 
-    /*
-    public SearchController(FlightDB flightDB, AirportDB airportDB, BookingDB bookingDB, SeatDB seatDB, PassengerDB passengerDB){
-        this.flightDB = flightDB;
-        this.airportDB = airportDB;
-        this.bookingDB = bookingDB;
-        this.seatDB = seatDB;
-        this.passengerDB = passengerDB;
-    }
-     */
+    private FlightController flightController;
+
 
     //Anything that needs to somehow be initialized should go in here.
     public void initialize() throws ClassNotFoundException {
+
+        flightController = new FlightController(new FlightDB());
         fxDepartureDate.setValue(LocalDate.now());
-        FlightDB.initialize();
-        AirportDB.initialize();
+        AirportDBdeletemaybe.initialize();
         BookingDB.initialize();
         SeatDB.initialize();
         PassengerDB.initialize();
@@ -83,7 +77,7 @@ public class FlightSearchUI {
 
     // Adds the names of all the airports in the database onto the drop-down choices to avoid hard-coding.
     public void populateDropDown(){
-        airportNames = AirportDB.dbAirportNames();
+        airportNames = flightController.getAirportNames();
         ObservableList<String> airportsObs = FXCollections.observableArrayList(airportNames);
         fxLocationPick.setItems(airportsObs);
         fxDestinationPick.setItems(airportsObs);
@@ -97,8 +91,6 @@ public class FlightSearchUI {
                 fxPricesFrom.setText(String.valueOf(t1.getDuration()*300));
             }
         });
-
-
     }
 
 
@@ -110,10 +102,9 @@ public class FlightSearchUI {
         String location = fxLocationPick.getValue();
         String destination = fxDestinationPick.getValue();
         String date = String.valueOf(fxDepartureDate.getValue());
-        System.out.println(String.valueOf(fxDepartureDate.getValue()));
 
         if (location != null){
-            flightArrayList = FlightDB.select(location, destination, date);
+            flightArrayList = flightController.searchFlights(location, destination, date);
         }
         ObservableList<Flight> testFlightObs = FXCollections.observableArrayList(flightArrayList);
         fxFlightList.setItems(testFlightObs);

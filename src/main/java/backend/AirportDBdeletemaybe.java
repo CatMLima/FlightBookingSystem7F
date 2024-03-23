@@ -3,10 +3,14 @@ package backend;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class AirportDB {
+public class AirportDBdeletemaybe {
     //queries about airports will take place here
 
     static Connection c;
+
+    public AirportDBdeletemaybe() throws ClassNotFoundException{
+        initialize();
+    }
 
     // initializes the connection from the controller
     public static void initialize() throws ClassNotFoundException {
@@ -22,7 +26,7 @@ public class AirportDB {
     }
 
     //This methods returns all the existing airports;
-    public static ArrayList<String> dbAirportNames(){
+    public ArrayList<String> dbAirportNames(){
         try{
             String query = "Select DISTINCT Location from AirportSolo";
             PreparedStatement prep = c.prepareStatement(query);
@@ -40,7 +44,7 @@ public class AirportDB {
         return null;
     }
 
-    public static void closeConnection() throws SQLException {
+    public void closeConnection() throws SQLException {
         c.close();
     }
 }

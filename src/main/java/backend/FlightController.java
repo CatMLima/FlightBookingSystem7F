@@ -38,6 +38,10 @@ public class FlightController {
         db.update(f, depDate, depTime, arrDate, arrTime, status);
     }
 
+    public ArrayList<String> getAirportNames(){
+        return db.getAirportNames();
+    }
+
     public void deleteFlight(Flight f) {
         db.delete(f);
     }

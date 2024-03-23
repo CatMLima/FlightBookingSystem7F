@@ -8,11 +8,15 @@ public class BookingController {
 
     int nextBookingId = 0;
 
-    BookingDB db = new BookingDB();
+    private BookingDB db;
 
     static final int KR_PER_MIN = 300;
     static final int BAG_COST = 4000;
     // might want to use UUIDs for this or find a way to ensure there are no collisions
+
+    public BookingController(BookingDB bookingDB){
+        db = bookingDB;
+    }
 
     public int calculatePrice(Flight f, int bags) {
         return (f.getDuration() * KR_PER_MIN) + (bags * BAG_COST);

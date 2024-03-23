@@ -10,6 +10,10 @@ public class BookingDB {
 
     static Connection c;
 
+    public BookingDB() throws ClassNotFoundException {
+        initialize();
+    }
+
     // initializes the connection from the controller
     public static void initialize() throws ClassNotFoundException {
         c = null;
@@ -23,7 +27,7 @@ public class BookingDB {
 
     }
 
-    public static void closeConnection() throws SQLException {
+    public void closeConnection() throws SQLException {
         c.close();
     }
 

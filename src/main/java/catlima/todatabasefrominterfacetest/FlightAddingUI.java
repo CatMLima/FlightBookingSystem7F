@@ -1,6 +1,6 @@
 package catlima.todatabasefrominterfacetest;
 
-import backend.AirportDB;
+import backend.FlightController;
 import backend.FlightDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,10 +31,16 @@ public class FlightAddingUI {
     public Button fxCreateButton;
     public Label fxConfirmation;
 
-    public void initialize(){
+    FlightController flightController;
+    FlightDB flightDB;
+
+    public void initialize() throws ClassNotFoundException {
+        flightDB = new FlightDB();
         populateChoiceBoxes();
         createButtonBinding();
         createTextBinding();
+        flightController = new FlightController(flightDB);
+
     }
 
     //Add a binding here so the Add Flight Button can't be clicked until the person has put in all the
@@ -53,14 +59,14 @@ public class FlightAddingUI {
     }
 
     public void populateChoiceBoxes(){
-        ArrayList<String> airportLocations = AirportDB.dbAirportNames();
+        ArrayList<String> airportLocations = flightController.getAirportNames();
         ObservableList<String> airportsObs = FXCollections.observableArrayList(airportLocations);
         fxLocationChoices.setItems(airportsObs);
         fxDestinationChoices.setItems(airportsObs);
     }
 
     public void onCreateFlight(ActionEvent actionEvent) throws SQLException {
-        FlightDB.create(fxFlightID.getText(),fxLocationChoices.getValue(),fxDestinationChoices.getValue(),String.valueOf(fxDepartureDate.getValue()),
+        flightDB.create(fxFlightID.getText(),fxLocationChoices.getValue(),fxDestinationChoices.getValue(),String.valueOf(fxDepartureDate.getValue()),
                 fxDepartureTime.getText(),String.valueOf(fxDepartureDate.getValue()),fxArrivalTime.getText());
         clearData();
     }
