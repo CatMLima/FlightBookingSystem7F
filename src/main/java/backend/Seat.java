@@ -46,6 +46,11 @@ public class Seat {
     }
 
     @Override
+    public String toString(){
+        return seatName;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o == null || this.getClass() != o.getClass()) return false;
         Seat seat = (Seat) o;

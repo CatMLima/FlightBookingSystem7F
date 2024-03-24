@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.text.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class FlightSearchUI {
 
@@ -130,6 +131,7 @@ public class FlightSearchUI {
         ViewSwitcher.switchTo(View.BOOKING, true);
         */
 
+        /*
         try {
             // Load the booking FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("booking-view.fxml"));
@@ -150,9 +152,41 @@ public class FlightSearchUI {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+         */
+
+        if (fxFlightList.getSelectionModel().getSelectedItem() != null){
+            BookingDialog bookingDialog = new BookingDialog(fxFlightList.getSelectionModel().getSelectedItem());
+            Optional<Booking> result = bookingDialog.showAndWait();
+
+            // TODO: Make it so when the Booking result is received, the booking will be registered into the database by called the appropriate DB class.
+            if(result.isPresent()){
+                Booking booking = result.get();
+                if (!booking.getPassenger().getName().equals("no")) {
+                    System.out.println("The booking was complete.");
+                } else {
+                    System.out.println("Booking was canceled.");
+                }
+            }
+
+        }
+
     }
 
     public void onAdmin(ActionEvent actionEvent) {
-        ViewSwitcher.switchTo(View.FLIGHT, true);
+        try {
+            // Load the flight adding FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("flight-control.fxml"));
+            Parent root = loader.load();
+
+            // Show the booking view
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) fxFlightList.getScene().getWindow(); // Assuming listView is part of your current scene
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //ViewSwitcher.switchTo(View.FLIGHT, true);
     }
 }

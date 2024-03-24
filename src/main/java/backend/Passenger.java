@@ -2,27 +2,32 @@ package backend;
 
 //BST in case we want names on these
 
+import java.util.UUID;
+
 public class Passenger {
-    private int kennitala; //do we want dashes?
+    public UUID id; //do we want dashes?
     private String name;
     private int passportNumber;
     private String address;
     private String phoneNumber;
 
     //Constructor
-    public Passenger(int kennitala, String name, int passportNumber, String address, String phoneNumber) {
-        this.kennitala = kennitala; //setKennitala(kennitala); instead?
+    public Passenger(String name, int passportNumber, String address, String phoneNumber) {
+        id = UUID.randomUUID(); //setKennitala(kennitala); instead?
         this.name = name; //setName(name);?
         this.passportNumber = passportNumber; //setPassportnumber(passportNumber);?
         this.address = address; //setAddress(address);?
         this.phoneNumber = phoneNumber; //setPhonenumber(phoneNumber);?
     }
-    public int getKennitala() {
+
+    /*
+    public long getKennitala() {
         return kennitala;
     }
     public void setKennitala(int kennitala) {
         this.kennitala = kennitala;
     }
+     */
 
     public String getName() {
         return name;

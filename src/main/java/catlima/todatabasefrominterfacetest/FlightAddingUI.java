@@ -5,8 +5,13 @@ import backend.FlightDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.*;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -35,7 +40,7 @@ public class FlightAddingUI {
     FlightDB flightDB;
 
     public void initialize() throws ClassNotFoundException {
-        flightDB = new FlightDB();
+        flightController = new FlightController(new FlightDB());
         populateChoiceBoxes();
         createButtonBinding();
         createTextBinding();
@@ -84,6 +89,18 @@ public class FlightAddingUI {
     }
 
     public void onReturn(ActionEvent actionEvent) {
-        ViewSwitcher.switchTo(View.SEARCH, true);
+        try {
+            // Load the search FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("search-view.fxml"));
+            Parent root = loader.load();
+
+            // Show the search view
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) fxConfirmation.getScene().getWindow(); // Assuming listView is part of your current scene
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
