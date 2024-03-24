@@ -14,6 +14,8 @@
                   <Label text="Select Destination" />
                   <ChoiceBox fx:id="fxDestinationPick" prefWidth="150.0" />
                   <DatePicker fx:id="fxDepartureDate" promptText="select departure date" />
+                  <Label text="Price" />
+                  <TextField fx:id="fxSelectedPrice" prefHeight="25.0" prefWidth="113.0" promptText="enter price" />
                   <Label text="List of Flights" />
                   <ListView fx:id="fxFlightList" prefHeight="200.0" prefWidth="200.0" />
                </children>

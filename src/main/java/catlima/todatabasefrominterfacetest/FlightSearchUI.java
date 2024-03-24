@@ -48,6 +48,9 @@ public class FlightSearchUI {
     @FXML
     private Button fxBookButton;
 
+    @FXML
+    private TextField fxSelectedPrice;
+
     private FlightDB flightDB;
 
     private AirportDBdeletemaybe airportDB;
@@ -59,6 +62,8 @@ public class FlightSearchUI {
     private PassengerDB passengerDB;
 
     private FlightController flightController;
+
+
 
 
     //Anything that needs to somehow be initialized should go in here.
@@ -95,7 +100,7 @@ public class FlightSearchUI {
 
 
     /*
-    TO TEST IT: Pick the Reykjavik Domestic Airport (RKV), Vatnsmýri, 101 Reykjavík as a location and the Urðargill 15, 600 Akureyri as destination and the date 6/6/2024
+    Will extract the values from the UI and sent them to the Flight controller class to be processed.
      */
     @FXML
     protected void onSearchClick(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, ParseException {
@@ -103,8 +108,10 @@ public class FlightSearchUI {
         String destination = fxDestinationPick.getValue();
         String date = String.valueOf(fxDepartureDate.getValue());
 
-        if (location != null){
+        if (location != null && fxSelectedPrice.getText().isEmpty()){
             flightArrayList = flightController.searchFlights(location, destination, date);
+        } else {
+            flightArrayList = flightController.searchFlightsWithPrice(location, destination, date, Integer.parseInt(fxSelectedPrice.getText()));
         }
         ObservableList<Flight> testFlightObs = FXCollections.observableArrayList(flightArrayList);
         fxFlightList.setItems(testFlightObs);

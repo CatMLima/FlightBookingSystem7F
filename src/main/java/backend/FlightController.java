@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class FlightController {
 
-    ArrayList<Flight> flights = new ArrayList<Flight>();
     private FlightDB db;
 
     public FlightController(FlightDB flightDB){
