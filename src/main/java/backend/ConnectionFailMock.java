@@ -15,15 +15,6 @@ public class ConnectionFailMock implements FlightDBInterface{
 
     }
 
-    @Override
-    public ArrayList<Flight> dbFlightSearch(String location, String destination, String date) throws SQLException {
-        return null;
-    }
-
-    @Override
-    public void createFlight(String flightID, String location, String destination, String depDate, String depTime, String arrDate, String arrTime) throws SQLException {
-
-    }
 
     @Override
     public void closeConnection() throws SQLException {

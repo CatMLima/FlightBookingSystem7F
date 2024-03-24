@@ -8,8 +8,7 @@ import java.util.Date;
 public interface FlightDBInterface {
 
     void initialize() throws ClassNotFoundException;
-    ArrayList<Flight> dbFlightSearch(String location, String destination, String date) throws SQLException;
-    void createFlight(String flightID, String location, String destination, String depDate, String depTime, String arrDate, String arrTime) throws SQLException;
+
     void closeConnection() throws SQLException;
 
     ArrayList<Flight> select(String location, String destination, String date) throws SQLException;
