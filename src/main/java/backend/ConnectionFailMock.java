@@ -7,7 +7,7 @@ import java.util.Date;
 public class ConnectionFailMock implements FlightDBInterface{
 
 
-    public ConnectionFailMock(Flight flight){
+    public ConnectionFailMock(ArrayList<Flight> flights){
 
     }
     @Override

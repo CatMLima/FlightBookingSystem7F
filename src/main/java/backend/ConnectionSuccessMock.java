@@ -10,10 +10,10 @@ import java.util.Objects;
 // simulates finding a flight
 public class ConnectionSuccessMock implements FlightDBInterface{
 
-    Flight flight;
+    ArrayList<Flight> flights;
 
-    public ConnectionSuccessMock(Flight flight){
-        this.flight = flight;
+    public ConnectionSuccessMock(ArrayList<Flight> flights){
+        this.flights = flights;
     }
     @Override
     public void initialize() throws ClassNotFoundException {
@@ -22,9 +22,13 @@ public class ConnectionSuccessMock implements FlightDBInterface{
 
     @Override
     public ArrayList<Flight> dbFlightSearch(String location, String destination, String date) throws SQLException {
-        ArrayList<Flight> flights = new ArrayList<>();
-        flights.add(flight);
-        return flights;
+        ArrayList<Flight> flightsAnswer = new ArrayList<>();
+        for (Flight flight: flights ){
+            if (flight.getLocation().equals(location) && flight.getDestination().equals(destination)){
+                flightsAnswer.add(flight);
+            }
+        }
+        return flightsAnswer;
 
     }
 
@@ -40,33 +44,36 @@ public class ConnectionSuccessMock implements FlightDBInterface{
 
     @Override
     public ArrayList<Flight> select(String location, String destination, String date) throws SQLException{
-        ArrayList<Flight> flights = new ArrayList<>();
-        if (flight.getLocation().equals(location)){
-            flights.add(flight);
-            return flights;
+        ArrayList<Flight> flightsAnswer = new ArrayList<>();
+        for (Flight flight: flights ){
+            if (flight.getLocation().equals(location) && flight.getDestination().equals(destination)){
+                flightsAnswer.add(flight);
+            }
         }
-        return null;
+        return flightsAnswer;
     }
 
     @Override
     public ArrayList<Flight> selectPrice(int price) throws SQLException{
-        ArrayList<Flight> flights = new ArrayList<>();
-        int flightPrice = flight.calculateDuration() * 300;
-        if (flightPrice == price){
-            flights.add(flight);
-            return flights;
+        ArrayList<Flight> flightsAnswer = new ArrayList<>();
+        for (Flight flight : flights){
+            if (flight.getStartingPrice() <= price){
+                flightsAnswer.add(flight);
+            }
         }
-        return null;
+        return flightsAnswer;
     }
 
     @Override
     public ArrayList<Flight> selectDate(java.util.Date date) throws SQLException{
-        ArrayList<Flight> flights = new ArrayList<>();
-        if (flight.getDepartureDate().equals(date)){
-            flights.add(flight);
-            return flights;
+        ArrayList<Flight> flightsAnswer = new ArrayList<>();
+        for (Flight flight : flights){
+            if (flight.getDepartureDate() == date){
+                flightsAnswer.add(flight);
+            }
         }
-        return null;
+
+        return flightsAnswer;
     }
 
     @Override
