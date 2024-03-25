@@ -32,5 +32,6 @@
       <Button fx:id="fxBookButton" layoutX="286.0" layoutY="361.0" mnemonicParsing="false" onAction="#onBook" text="Book" />
       <Label layoutX="14.0" layoutY="365.0" text="Prices From:" />
       <Label fx:id="fxPricesFrom" layoutX="87.0" layoutY="365.0" />
+      <Label fx:id="fxBookingStatus" layoutX="158.0" layoutY="365.0" />
    </children>
 </Pane>

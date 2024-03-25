@@ -28,6 +28,7 @@ public class BookingController {
 
     public void book(Flight f, Seat s, Passenger p, int bags) {
         Booking b = new Booking(f, s, p, nextBookingId, false, bags);
+        s.setBooked(true);
         db.insert(b);
     }
 

@@ -99,6 +99,7 @@ public class BookingDialog extends Dialog<String[]> {
         String [] result = {fxPassengerName.getText(), fxPassportNumber.getText(), fxAddress.getText(), fxPhoneNumber.getText(), fxSeatChoice.getValue().getSeatName(), fxLuggageNumber.getText()};
         setResult(result);
 
+
     }
 
     @FXML

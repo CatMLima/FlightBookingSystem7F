@@ -52,15 +52,8 @@ public class FlightSearchUI {
     @FXML
     private TextField fxSelectedPrice;
 
-    private FlightDB flightDB;
-
-    private AirportDBdeletemaybe airportDB;
-
-    private BookingDB bookingDB;
-
-    private SeatDB seatDB;
-
-    private PassengerDB passengerDB;
+    @FXML
+    private Label fxBookingStatus;
 
     private FlightController flightController;
 
@@ -72,9 +65,6 @@ public class FlightSearchUI {
         flightController = new FlightController(new FlightDB());
         bookingController = new BookingController(new BookingDB());
         fxDepartureDate.setValue(LocalDate.now());
-        AirportDBdeletemaybe.initialize();
-        SeatDB.initialize();
-        PassengerDB.initialize();
         populateDropDown();
         createBindings();
     }
@@ -144,11 +134,19 @@ public class FlightSearchUI {
                 if (!answer[0].equals("none")){
                     Passenger passenger = new Passenger(answer[0], Integer.parseInt(answer[1]), answer[2], answer[3]);
                     bookingController.book(selected, selected.getSeat(answer[4]), passenger, Integer.parseInt(answer[5]));
+                    fxBookingStatus.setText("Booking Complete");
                 }
             }
 
         }
 
+    }
+
+    public void resetUI(){
+        fxDepartureDate.setValue(null);
+        fxLocationPick.setValue(null);
+        fxDestinationPick.setValue(null);
+        fxSelectedPrice.setText(null);
     }
 
     public void onAdmin(ActionEvent actionEvent) {
