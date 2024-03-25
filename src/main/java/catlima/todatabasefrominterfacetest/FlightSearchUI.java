@@ -64,16 +64,15 @@ public class FlightSearchUI {
 
     private FlightController flightController;
 
-
-
+    private BookingController bookingController;
 
     //Anything that needs to somehow be initialized should go in here.
     public void initialize() throws ClassNotFoundException {
 
         flightController = new FlightController(new FlightDB());
+        bookingController = new BookingController(new BookingDB());
         fxDepartureDate.setValue(LocalDate.now());
         AirportDBdeletemaybe.initialize();
-        BookingDB.initialize();
         SeatDB.initialize();
         PassengerDB.initialize();
         populateDropDown();
@@ -122,50 +121,29 @@ public class FlightSearchUI {
     @FXML
     protected void onBook(ActionEvent actionEvent) throws IOException {
 
-        /*
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(View.BOOKING.getFileName()));
-        Parent root = loader.load();
+        Flight selected = fxFlightList.getSelectionModel().getSelectedItem();
 
-        BookingController bookingController = loader.getController();
-        bookingController.setFlight(fxFlightList.getSelectionModel().getSelectedItem());
-        ViewSwitcher.switchTo(View.BOOKING, true);
-        */
+        if (selected != null){
 
-        /*
-        try {
-            // Load the booking FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("booking-view.fxml"));
-            Parent root = loader.load();
-
-            // Get the booking controller
-            BookingUI bookingController = loader.getController();
-
-            // Pass the selected flight to the booking controller
-            Flight selectedFlight = fxFlightList.getSelectionModel().getSelectedItem();
-            bookingController.setFlight(selectedFlight);
-
-            // Show the booking view
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) fxFlightList.getScene().getWindow(); // Assuming listView is part of your current scene
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-         */
-
-        if (fxFlightList.getSelectionModel().getSelectedItem() != null){
             BookingDialog bookingDialog = new BookingDialog(fxFlightList.getSelectionModel().getSelectedItem());
-            Optional<Booking> result = bookingDialog.showAndWait();
+            //Optional<Booking> result = bookingDialog.showAndWait();
+            Optional<String []> result = bookingDialog.showAndWait();
 
             // TODO: Make it so when the Booking result is received, the booking will be registered into the database by called the appropriate DB class.
             if(result.isPresent()){
-                Booking booking = result.get();
+                String [] answer = result.get();
+                //Booking booking = result.get();
+                /*
                 if (!booking.getPassenger().getName().equals("no")) {
                     System.out.println("The booking was complete.");
                 } else {
                     System.out.println("Booking was canceled.");
+                }
+
+                 */
+                if (!answer[0].equals("none")){
+                    Passenger passenger = new Passenger(answer[0], Integer.parseInt(answer[1]), answer[2], answer[3]);
+                    bookingController.book(selected, selected.getSeat(answer[4]), passenger, Integer.parseInt(answer[5]));
                 }
             }
 

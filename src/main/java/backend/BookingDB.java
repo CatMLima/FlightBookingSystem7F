@@ -1,8 +1,7 @@
 package backend;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.text.*;
 import java.util.ArrayList;
 
 public class BookingDB {
@@ -10,8 +9,11 @@ public class BookingDB {
 
     static Connection c;
 
+    FlightDB flightDB;
+
     public BookingDB() throws ClassNotFoundException {
         initialize();
+        flightDB = new FlightDB();
     }
 
     // initializes the connection from the controller
@@ -44,6 +46,28 @@ public class BookingDB {
     }
 
     public void insert(Booking b) {
+        flightDB.updateSeatToTaken(b.getBookedFlight(), b.getSeat());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String depDate = dateFormat.format(b.getBookedFlight().getDepartureDate());
+
+        try {
+            String insert = "INSERT INTO Booking VALUES ((?), (?),(?),(?),(?),(?))";
+            PreparedStatement prep = c.prepareStatement(insert);
+            prep.setString(1, String.valueOf(b.getPassenger().getPassportNumber()));
+            prep.setString(2, b.getBookedFlight().getId());
+            prep.setString(3, b.getSeat().getSeatName());
+            prep.setString(4, depDate);
+            prep.setString(5, depDate);
+            prep.setBoolean(6, false);
+
+            prep.executeUpdate();
+
+        } catch (Exception e){
+            System.out.println("Issues updating the Booking table)");
+        }
+
         return;
     }
+
+
 }

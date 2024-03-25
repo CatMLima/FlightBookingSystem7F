@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class BookingDialog extends Dialog<Booking> {
+public class BookingDialog extends Dialog<String[]> {
 
     @FXML
     Button fxFinishBooking;
@@ -93,17 +93,19 @@ public class BookingDialog extends Dialog<Booking> {
 
     @FXML
     public void onFinishBooking(ActionEvent actionEvent){
-        Passenger passenger = new Passenger(fxPassengerName.getText(), Integer.parseInt(fxPassportNumber.getText()),
-                fxAddress.getText(), fxPhoneNumber.getText());
-        Booking booking = new Booking(flight, fxSeatChoice.getValue(), passenger, 1, true, Integer.parseInt(fxLuggageNumber.getText()));
-        setResult(booking);
+        //Passenger passenger = new Passenger(fxPassengerName.getText(), Integer.parseInt(fxPassportNumber.getText()),
+                //fxAddress.getText(), fxPhoneNumber.getText());
+        //Booking booking = new Booking(flight, fxSeatChoice.getValue(), passenger, 1, true, Integer.parseInt(fxLuggageNumber.getText()));
+        String [] result = {fxPassengerName.getText(), fxPassportNumber.getText(), fxAddress.getText(), fxPhoneNumber.getText(), fxSeatChoice.getValue().getSeatName(), fxLuggageNumber.getText()};
+        setResult(result);
 
     }
 
     @FXML
     public void onCancel(ActionEvent actionEvent){
-        setResult(new Booking(flight,new Seat("no", false, false),new Passenger("no", 0,"no","no"),0,false,0));
-        //setResult(null);
+        //setResult(new Booking(flight,new Seat("no", false, false),new Passenger("no", 0,"no","no"),0,false,0));
+        String [] result = {"none"};
+        setResult(result);
 
     }
 

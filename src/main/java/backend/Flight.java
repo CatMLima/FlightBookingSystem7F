@@ -118,6 +118,15 @@ public class Flight {
             return availableSeats;
         }
 
+        public Seat getSeat(String seatName){
+            for (Seat seat : seats){
+                if (seat.getSeatName().equals(seatName)){
+                    return seat;
+                }
+            }
+            return null;
+        }
+
         public int getStartingPrice() {
             return this.getDuration() * KR_PER_MIN;
         }

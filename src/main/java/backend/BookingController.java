@@ -26,14 +26,6 @@ public class BookingController {
         return null;
     }
 
-    public void book(Flight flight){
-
-    }
-
-    public void cancel(Booking booking){
-
-    }
-
     public void book(Flight f, Seat s, Passenger p, int bags) {
         Booking b = new Booking(f, s, p, nextBookingId, false, bags);
         db.insert(b);

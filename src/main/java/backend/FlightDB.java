@@ -236,6 +236,25 @@ public class FlightDB {
         return null;
     }
 
+    public void updateSeatToTaken(Flight flight, Seat seat){
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String depDate = dateFormat.format(flight.getDepartureDate());
+
+            String query = "Update Flights set Taken=TRUE where FlightID = (?)" +
+                    " AND DepDate = (?) AND Seat = (?)";
+            PreparedStatement prep = c.prepareStatement(query);
+            prep.setString(1,flight.getId());
+            prep.setString(2, depDate);
+            prep.setString(3, seat.getSeatName());
+
+            prep.executeUpdate();
+
+        } catch (Exception e){
+            System.out.println("Error in updating seat status");
+        }
+    }
+
     // testing dbFlightSearch
     /*
     public static void main(String [] args) throws SQLException, ClassNotFoundException, ParseException {
