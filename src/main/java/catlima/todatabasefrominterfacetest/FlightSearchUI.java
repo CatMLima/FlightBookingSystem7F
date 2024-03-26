@@ -116,26 +116,14 @@ public class FlightSearchUI {
         if (selected != null){
 
             BookingDialog bookingDialog = new BookingDialog(fxFlightList.getSelectionModel().getSelectedItem());
-            //Optional<Booking> result = bookingDialog.showAndWait();
             Optional<String []> result = bookingDialog.showAndWait();
 
-            // TODO: Make it so when the Booking result is received, the booking will be registered into the database by called the appropriate DB class.
             if(result.isPresent()){
                 String [] answer = result.get();
-                //Booking booking = result.get();
-                /*
-                if (!booking.getPassenger().getName().equals("no")) {
-                    System.out.println("The booking was complete.");
-                } else {
-                    System.out.println("Booking was canceled.");
-                }
 
-                 */
                 if (!answer[0].equals("none")){
                     Passenger passenger = new Passenger(answer[0], Integer.parseInt(answer[1]), answer[2], answer[3]);
                     bookingController.book(selected, selected.getSeat(answer[4]), passenger, Integer.parseInt(answer[5]));
-                    System.out.println(selected.getSeat(answer[4]));
-                    System.out.println(passenger.getName());
                     fxBookingStatus.setText("Booking Complete");
                 }
             }
@@ -165,6 +153,5 @@ public class FlightSearchUI {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //ViewSwitcher.switchTo(View.FLIGHT, true);
     }
 }

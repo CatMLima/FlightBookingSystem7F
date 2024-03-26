@@ -13,9 +13,6 @@ public class FlightApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(FlightApplication.class.getResource("search-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 500, 500);
 
-        ViewSwitcher.setScene(scene);
-        ViewSwitcher.switchTo(View.SEARCH, true);
-
         stage.setTitle("Flight System");
         stage.setScene(scene);
         stage.show();

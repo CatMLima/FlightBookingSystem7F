@@ -44,7 +44,7 @@ public class FlightAddingUI {
         populateChoiceBoxes();
         createButtonBinding();
         createTextBinding();
-        flightController = new FlightController(flightDB);
+        //flightController = new FlightController(flightDB);
 
     }
 
@@ -71,7 +71,7 @@ public class FlightAddingUI {
     }
 
     public void onCreateFlight(ActionEvent actionEvent) throws SQLException {
-        flightDB.create(fxFlightID.getText(),fxLocationChoices.getValue(),fxDestinationChoices.getValue(),String.valueOf(fxDepartureDate.getValue()),
+        flightController.addFlight(fxFlightID.getText(),fxLocationChoices.getValue(),fxDestinationChoices.getValue(),String.valueOf(fxDepartureDate.getValue()),
                 fxDepartureTime.getText(),String.valueOf(fxDepartureDate.getValue()),fxArrivalTime.getText());
         clearData();
     }
@@ -79,13 +79,6 @@ public class FlightAddingUI {
     public void clearData(){
         fxConfirmation.setText("Flight Added");
         fxFlightID.clear();
-        /*
-        fxDestinationChoices.setValue(null);
-        fxLocationChoices.setValue(null);
-        fxDepartureDate.setValue(null);
-        fxDepartureTime.clear();
-        fxArrivalTime.clear();
-         */
     }
 
     public void onReturn(ActionEvent actionEvent) {
