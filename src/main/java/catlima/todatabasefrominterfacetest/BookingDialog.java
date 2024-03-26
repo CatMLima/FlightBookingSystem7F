@@ -76,6 +76,7 @@ public class BookingDialog extends Dialog<String[]> {
 
     private void getAvailableSeats(ArrayList<Seat> seats){
         int count = 0;
+        ArrayList<Seat> availableSeats = new ArrayList<>();
         for (Seat seat : seats) {
             if (!seat.getBooked()) {
                 if (count % 10 == 0) {
@@ -83,9 +84,10 @@ public class BookingDialog extends Dialog<String[]> {
                 }
                 fxAvailableSeats.setText(fxAvailableSeats.getText() + " " + seat.getSeatName());
                 count++;
+                availableSeats.add(seat);
             }
         }
-        ObservableList<Seat> availableSeatsList = FXCollections.observableArrayList(seats);
+        ObservableList<Seat> availableSeatsList = FXCollections.observableArrayList(availableSeats);
         fxSeatChoice.setItems(availableSeatsList);
     }
 
