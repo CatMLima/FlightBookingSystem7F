@@ -272,18 +272,16 @@ public class FlightDB {
     *
      */
     public void specialAdd() throws SQLException {
-        int count = 15;
-        String flightID = "HFN0";
-        String location = "Hornafjorður Airport (HFN)";
+        int count = 10;
+        String flightID = "VEY0";
+        String location = "Vestmannaeyjar Airport (VEY)";
         String destination = "Reykjavik Domestic Airport (RVK)";
         String[] dates = {
-                "2024-05-01", "2024-05-02", "2024-05-03", "2024-05-04", "2024-05-05",
-                "2024-05-06", "2024-05-07", "2024-05-08", "2024-05-09", "2024-05-10",
-                "2024-05-11", "2024-05-12", "2024-05-13", "2024-05-14", "2024-05-15",
-                "2024-05-16", "2024-05-17"
+                "2024-05-10",
+                "2024-05-12", "2024-05-14", "2024-05-17"
         };
-        String depTime = "9:05";
-        String arrTime = "10:00";
+        String depTime = "15:25";
+        String arrTime = "15:50";
 
         for (int i = 0; i < dates.length; i++){
             String newFlightID = flightID + count;
