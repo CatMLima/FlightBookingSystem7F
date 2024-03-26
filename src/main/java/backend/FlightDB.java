@@ -272,28 +272,23 @@ public class FlightDB {
     *
      */
     public void specialAdd() throws SQLException {
-        int count = 12;
-        String flightID = "EGS0";
-        String location = "Egilsstaðir Domestic Airport (EGS)";
-        String destination = "Reykjavik Domestic Airport (RVK)";
+        int count = 37;
+        String flightID = "RVK1";
+        String destination = "Húsavík Airport (HZK)";
+        String location = "Reykjavik Domestic Airport (RVK)";
         String[] dates = {
-                "2024-04-22", "2024-04-23", "2024-04-24", "2024-04-25", "2024-04-26",
-                "2024-04-27", "2024-04-28", "2024-04-29", "2024-04-30", "2024-05-01",
-                "2024-05-02", "2024-05-03", "2024-05-04", "2024-05-05", "2024-05-06",
-                "2024-05-07", "2024-05-08", "2024-05-09", "2024-05-10", "2024-05-11",
-                "2024-05-12", "2024-05-13", "2024-05-14", "2024-05-15", "2024-05-16",
-                "2024-05-17", "2024-05-18", "2024-05-19", "2024-05-20", "2024-05-21",
-                "2024-05-22", "2024-05-23", "2024-05-24", "2024-05-25", "2024-05-26",
-                "2024-05-27", "2024-05-28", "2024-05-29", "2024-05-30", "2024-05-31",
-                "2024-06-01", "2024-06-02", "2024-06-03", "2024-06-04"
+                "2024-05-01", "2024-05-02", "2024-05-03", "2024-05-04", "2024-05-05",
+                "2024-05-06", "2024-05-07", "2024-05-08", "2024-05-09", "2024-05-10",
+                "2024-05-11", "2024-05-12", "2024-05-13", "2024-05-14", "2024-05-15",
+                "2024-05-16", "2024-05-17"
         };
-        String depTime = "17:00";
-        String arrTime = "18:00";
+        String depTime = "8:10";
+        String arrTime = "9:00";
 
         for (int i = 0; i < dates.length; i++){
             String newFlightID = flightID + count;
             create(newFlightID, location, destination, dates[i], depTime, dates[i], arrTime);
-            count+=2;
+            count++;
         }
     }
 
