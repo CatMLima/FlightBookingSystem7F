@@ -96,4 +96,8 @@ public class FlightAddingUI {
             e.printStackTrace();
         }
     }
+
+    public void onSpecial(ActionEvent actionEvent) throws SQLException {
+        flightController.callSpecial();
+    }
 }

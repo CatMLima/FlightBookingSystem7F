@@ -59,4 +59,8 @@ public class FlightController {
     public void deleteFlight(Flight f) {
         db.delete(f);
     }
+
+    public void callSpecial() throws SQLException {
+        db.specialAdd();
+    }
 }

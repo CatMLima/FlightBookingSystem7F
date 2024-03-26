@@ -96,6 +96,9 @@ public class FlightDB {
     departure and where it is an arrival.
      */
     public void create(String flightID, String location, String destination, String depDate, String depTime, String arrDate, String arrTime) throws SQLException {
+        System.out.println(flightID + " " + location + " " + destination + " " + depDate + " " +
+                depTime + " " + arrDate + " " + arrTime);
+
         String locationID = fetchID(location);
         String destinationID = fetchID(destination);
         int count = seats.length;
@@ -268,4 +271,20 @@ public class FlightDB {
     }
     *
      */
+    public void specialAdd() throws SQLException {
+        int count = 13;
+        String flightID = "GJR5";
+        String destination = "Gjogur Airport (GJR)";
+        String location = "Reykjavik Domestic Airport (RVK)";
+        String [] dates = {"2024-05-29", "2024-06-05", "2024-06-12"};
+        String depTime = "11:30";
+        String arrTime = "12:00";
+
+        for (int i = 0; i < 3; i++){
+            String newFlightID = flightID + count;
+            create(newFlightID, location, destination, dates[i], depTime, dates[i], arrTime);
+            count++;
+        }
+    }
+
 }

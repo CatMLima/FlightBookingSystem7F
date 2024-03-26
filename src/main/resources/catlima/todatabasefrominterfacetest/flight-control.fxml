@@ -54,5 +54,6 @@
             <Label fx:id="fxConfirmation" />
          </children>
       </VBox>
+      <Button layoutX="515.0" layoutY="14.0" mnemonicParsing="false" onAction="#onSpecial" text="Special" />
    </children>
 </Pane>
