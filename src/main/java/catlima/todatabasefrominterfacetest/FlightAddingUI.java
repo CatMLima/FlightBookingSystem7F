@@ -97,7 +97,4 @@ public class FlightAddingUI {
         }
     }
 
-    public void onSpecial(ActionEvent actionEvent) throws SQLException {
-        flightController.callSpecial();
-    }
 }
