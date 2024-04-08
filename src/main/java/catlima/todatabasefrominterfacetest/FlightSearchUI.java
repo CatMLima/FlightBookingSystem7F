@@ -5,7 +5,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -125,6 +125,14 @@ public class FlightSearchUI {
                     Passenger passenger = new Passenger(answer[0], Integer.parseInt(answer[1]), answer[2], answer[3]);
                     bookingController.book(selected, selected.getSeat(answer[4]), passenger, Integer.parseInt(answer[5]));
                     fxBookingStatus.setText("Booking Complete");
+
+
+                    Alert a = new Alert(Alert.AlertType.INFORMATION);
+                    a.setTitle("Confirmation");
+                    a.setHeaderText("Booking confirmed.");
+                    a.setContentText("Your booking has been finished.");
+                    a.showAndWait();
+
                 }
             }
 

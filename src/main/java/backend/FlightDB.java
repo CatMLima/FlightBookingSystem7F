@@ -258,17 +258,4 @@ public class FlightDB {
         }
     }
 
-    // testing dbFlightSearch
-    /*
-    public static void main(String [] args) throws SQLException, ClassNotFoundException, ParseException {
-        FlightDB.initialize();
-        SeatDB.initialize();
-        ArrayList<Flight> flightList = select("Reykjavik Domestic Airport (RKV)","Akureyri Domestic Airport (AEY)", "2024-03-16");
-        Flight flight = flightList.get(0);
-        System.out.println(flight.getLocation());
-        ArrayList<Seat> seatsList = flight.getSeats();
-        System.out.println(seatsList.get(0).getBooked());
-    }
-    *
-     */
 }
