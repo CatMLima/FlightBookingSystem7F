@@ -1,5 +1,7 @@
 package backend;
 
+import java.util.*;
+
 public class Booking {
 
         private Flight bookedFlight;
@@ -8,6 +10,9 @@ public class Booking {
         private int bookingNumber;
         private boolean isPaidFor;
         private int bags;
+        private int finalPrice;
+        final int KR_PER_BAG = 5000;
+        private UUID id;
 
         public Booking(Flight bookedFlight, Seat seat, Passenger passenger, int bookingNumber, boolean isPaidFor, int bags) {
             this.bookedFlight = bookedFlight;
@@ -24,6 +29,8 @@ public class Booking {
                 this.seat.setIsonHold(false);
                 this.seat.setBooked(true);
             }
+            this.finalPrice = bookedFlight.getStartingPrice() + bags*KR_PER_BAG;
+            this.id = UUID.randomUUID();
         }
 
         // Getters and setters
@@ -75,11 +82,19 @@ public class Booking {
             this.bags = bags;
         }
 
+        public String getId(){
+            return this.id.toString();
+        }
+
         // Other methods
         public void payForFlight() {
             this.isPaidFor = true;
             //this.seat.setIsOnHold(false);
             this.seat.setBooked(true);
+        }
+
+        public int getFinalPrice(){
+            return finalPrice;
         }
 
         // Not implementing cancel method for now as TA mentioned it doesn't make sense

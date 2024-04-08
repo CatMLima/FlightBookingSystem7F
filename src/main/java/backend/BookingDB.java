@@ -2,7 +2,7 @@ package backend;
 
 import java.sql.*;
 import java.text.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class BookingDB {
     /*Where all queries about bookings and updating and creating them will reside.*/
@@ -51,7 +51,7 @@ public class BookingDB {
         String depDate = dateFormat.format(b.getBookedFlight().getDepartureDate());
 
         try {
-            String insert = "INSERT INTO Booking VALUES ((?), (?),(?),(?),(?),(?))";
+            String insert = "INSERT INTO Booking VALUES ((?), (?),(?),(?),(?),(?),(?))";
             PreparedStatement prep = c.prepareStatement(insert);
             prep.setString(1, String.valueOf(b.getPassenger().getPassportNumber()));
             prep.setString(2, b.getBookedFlight().getId());
@@ -59,6 +59,7 @@ public class BookingDB {
             prep.setString(4, depDate);
             prep.setString(5, depDate);
             prep.setBoolean(6, false);
+            prep.setString(7, b.getId());
 
             prep.executeUpdate();
 
