@@ -6,10 +6,13 @@ import java.util.ArrayList;
 
 public class FlightController {
 
-    private FlightDB db;
+    private FlightDB flightDB;
 
-    public FlightController(FlightDB flightDB){
-        db = flightDB;
+    private BookingDB bookingDB;
+
+    public FlightController(FlightDB flightDB, BookingDB bookingDB){
+        this.flightDB = flightDB;
+        this.bookingDB = bookingDB;
     }
 
     /*
@@ -17,14 +20,14 @@ public class FlightController {
     managers to have access to the system.
      */
     public void addFlight(String flightID, String location, String destination, String depDate, String depTime, String arrDate, String arrTime) throws SQLException {
-        db.create(flightID, location, destination, depDate, depTime, arrDate, arrTime);
+        flightDB.create(flightID, location, destination, depDate, depTime, arrDate, arrTime);
     }
 
     /*
     When a general search with only location, destination and date is made, this method is called.
      */
     public ArrayList<Flight> searchFlights(String departureLocation, String arrivalLocation, String date) throws SQLException, ParseException {
-        return db.select(departureLocation, arrivalLocation, date);
+        return flightDB.select(departureLocation, arrivalLocation, date);
     }
 
     /*
@@ -47,14 +50,14 @@ public class FlightController {
     Again, this is tied to the feature of management being able to update flight status.
      */
     public void updateFlight(Flight f, String depDate, String depTime, String arrDate, String arrTime, String status) {
-        db.update(f, depDate, depTime, arrDate, arrTime, status);
+        flightDB.update(f, depDate, depTime, arrDate, arrTime, status);
     }
 
     /*
     This can be used by the UI class to display all the possible places to leave from and go to.
      */
     public ArrayList<String> getAirportNames(){
-        return db.getAirportNames();
+        return flightDB.getAirportNames();
     }
 
     // TODO: Code how the available seat display is coded, both to show what is available and what happens when a seat is chosen.
@@ -76,13 +79,24 @@ public class FlightController {
         return seats;
     }
 
+    /*
+    Most important part of this controller. It makes sure to update the relevant objects
+    and call the responsible db class.
+     */
+    public void book(Flight f, Seat s, Passenger p, int bags) {
+        Booking b = new Booking(f, s, p, false, bags);
+        f.getSeat(s.getSeatName()).setBooked(true);
+        bookingDB.insert(b);
+    }
+
+
 
     /*
     Another managerial method in case a flight can be completely taken away. Can also be used
     to clean the database after enough time has passed since the flight happened.
      */
     public void deleteFlight(Flight f) {
-        db.delete(f);
+        flightDB.delete(f);
     }
 
 }

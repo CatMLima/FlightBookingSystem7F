@@ -57,13 +57,11 @@ public class FlightSearchUI {
 
     private FlightController flightController;
 
-    private BookingController bookingController;
 
     //Anything that needs to somehow be initialized should go in here.
     public void initialize() throws ClassNotFoundException {
 
-        flightController = new FlightController(new FlightDB());
-        bookingController = new BookingController(new BookingDB());
+        flightController = new FlightController(new FlightDB(), new BookingDB());
         fxDepartureDate.setValue(LocalDate.now());
         populateDropDown();
         createBindings();
@@ -123,7 +121,7 @@ public class FlightSearchUI {
 
                 if (!answer[0].equals("none")){
                     Passenger passenger = new Passenger(answer[0], Integer.parseInt(answer[1]), answer[2], answer[3]);
-                    bookingController.book(selected, selected.getSeat(answer[4]), passenger, Integer.parseInt(answer[5]));
+                    flightController.book(selected, selected.getSeat(answer[4]), passenger, Integer.parseInt(answer[5]));
                     fxBookingStatus.setText("Booking Complete");
 
 

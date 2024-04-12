@@ -25,7 +25,7 @@ public class BookingUI {
     private FlightController flightController;
 
     public void initialize() throws ClassNotFoundException {
-        flightController = new FlightController(new FlightDB());
+        flightController = new FlightController(new FlightDB(), new BookingDB());
         //populateSeatsGrid();
 
     }

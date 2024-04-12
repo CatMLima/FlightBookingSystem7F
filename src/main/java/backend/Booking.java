@@ -14,11 +14,10 @@ public class Booking {
         final int KR_PER_BAG = 5000;
         private UUID id;
 
-        public Booking(Flight bookedFlight, Seat seat, Passenger passenger, int bookingNumber, boolean isPaidFor, int bags) {
+        public Booking(Flight bookedFlight, Seat seat, Passenger passenger, boolean isPaidFor, int bags) {
             this.bookedFlight = bookedFlight;
             this.seat = seat;
             this.passenger = passenger;
-            this.bookingNumber = bookingNumber;
             this.bags = bags;
             this.isPaidFor = isPaidFor;
             // Set seat's status to on hold or booked
