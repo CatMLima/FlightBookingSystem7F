@@ -2,7 +2,7 @@ package backend;
 
 import java.util.*;
 
-public class Booking {
+public class BookingFlight {
 
         private Flight bookedFlight;
         private Seat seat;
@@ -14,7 +14,7 @@ public class Booking {
         final int KR_PER_BAG = 5000;
         private UUID id;
 
-        public Booking(Flight bookedFlight, Seat seat, Passenger passenger, boolean isPaidFor, int bags) {
+        public BookingFlight(Flight bookedFlight, Seat seat, Passenger passenger, boolean isPaidFor, int bags) {
             this.bookedFlight = bookedFlight;
             this.seat = seat;
             this.passenger = passenger;

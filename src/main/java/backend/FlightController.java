@@ -8,9 +8,9 @@ public class FlightController {
 
     private FlightDB flightDB;
 
-    private BookingDB bookingDB;
+    private BookingFlightDB bookingDB;
 
-    public FlightController(FlightDB flightDB, BookingDB bookingDB){
+    public FlightController(FlightDB flightDB, BookingFlightDB bookingDB){
         this.flightDB = flightDB;
         this.bookingDB = bookingDB;
     }
@@ -84,7 +84,7 @@ public class FlightController {
     and call the responsible db class.
      */
     public void book(Flight f, Seat s, Passenger p, int bags) {
-        Booking b = new Booking(f, s, p, false, bags);
+        BookingFlight b = new BookingFlight(f, s, p, false, bags);
         f.getSeat(s.getSeatName()).setBooked(true);
         bookingDB.insert(b);
     }

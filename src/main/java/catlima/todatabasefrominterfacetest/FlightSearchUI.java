@@ -61,7 +61,7 @@ public class FlightSearchUI {
     //Anything that needs to somehow be initialized should go in here.
     public void initialize() throws ClassNotFoundException {
 
-        flightController = new FlightController(new FlightDB(), new BookingDB());
+        flightController = new FlightController(new FlightDB(), new BookingFlightDB());
         fxDepartureDate.setValue(LocalDate.now());
         populateDropDown();
         createBindings();

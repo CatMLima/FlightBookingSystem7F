@@ -1,6 +1,6 @@
 package catlima.todatabasefrominterfacetest;
 
-import backend.BookingDB;
+import backend.BookingFlightDB;
 import backend.FlightController;
 import backend.FlightDB;
 import javafx.collections.FXCollections;
@@ -41,7 +41,7 @@ public class FlightAddingUI {
     FlightDB flightDB;
 
     public void initialize() throws ClassNotFoundException {
-        flightController = new FlightController(new FlightDB(), new BookingDB());
+        flightController = new FlightController(new FlightDB(), new BookingFlightDB());
         populateChoiceBoxes();
         createButtonBinding();
         createTextBinding();

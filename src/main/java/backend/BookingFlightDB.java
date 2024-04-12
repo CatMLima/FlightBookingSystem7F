@@ -4,14 +4,14 @@ import java.sql.*;
 import java.text.*;
 import java.util.*;
 
-public class BookingDB {
+public class BookingFlightDB {
     /*Where all queries about bookings and updating and creating them will reside.*/
 
     static Connection c;
 
     FlightDB flightDB;
 
-    public BookingDB() throws ClassNotFoundException {
+    public BookingFlightDB() throws ClassNotFoundException {
         initialize();
         flightDB = new FlightDB();
     }
@@ -33,19 +33,19 @@ public class BookingDB {
         c.close();
     }
 
-    public ArrayList<Booking> select(Booking b) {
+    public ArrayList<BookingFlight> select(BookingFlight b) {
         return null;
     }
 
-    public void update(Booking b) {
+    public void update(BookingFlight b) {
         return;
     }
 
-    public void delete(Booking b) {
+    public void delete(BookingFlight b) {
         return;
     }
 
-    public void insert(Booking b) {
+    public void insert(BookingFlight b) {
         flightDB.updateSeatToTaken(b.getBookedFlight(), b.getSeat());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String depDate = dateFormat.format(b.getBookedFlight().getDepartureDate());
